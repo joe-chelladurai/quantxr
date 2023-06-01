@@ -1,0 +1,22 @@
+[
+  {
+    "listing": "/garden.html",
+    "items": [
+      "/garden/code/index.html",
+      "/garden/datasets/index.html",
+      "/garden/gardening/index.html"
+    ]
+  },
+  {
+    "listing": "/newsletters.html",
+    "items": [
+      "/newsletters/01/index.html"
+    ]
+  },
+  {
+    "listing": "/posts.html",
+    "items": [
+      "/posts/2023-31-5-first-post/index.html"
+    ]
+  }
+]
