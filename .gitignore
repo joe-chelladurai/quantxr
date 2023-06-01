@@ -2,3 +2,5 @@ _freeze
 _site
 .quarto
 .Rproj.user
+
+/.quarto/
