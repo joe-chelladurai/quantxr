@@ -1,0 +1,20 @@
+---
+sidebar: false
+title: "Welcome to my blog"
+description: "A new place to share my data visualisations"
+author:
+  - name: Joe Chelladurai
+    url: https://joechelladurai.com/
+date: 05-31-2023
+categories: [announcement] # self-defined categories
+draft: false # setting this to `true` will prevent your post from appearing on your listing page until you're ready!
+---
+
+
+## A New Place to Share Sports Data Visualisation
+
+In this blog, I would like to share experiments, half-cooked ideas, and data visualisation techniques. Some of these posts will be treated like a digital garden so expect things to change. 
+
+## What I Plan to Do
+
+Over the past year, I've created a few visualisations that I shared online. This website is a place where I hope to share more about the process and the visualisations that I create. 

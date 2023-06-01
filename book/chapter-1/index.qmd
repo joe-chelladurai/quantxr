@@ -1,0 +1,7 @@
+---
+layout: default
+title: Get, Set, Go
+---
+
+
+In this chapter, we will complete setup and get ready to go.

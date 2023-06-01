@@ -1,0 +1,156 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This is a place where I share some of my experiments with data visualisation and analytics related with sports. I think working with sports data can be a fun way to start learning how to use programming languages. Since the focus is not necessarily on the programming language, it may be possible to skip through the boring parts, atleast in the beginning.\nI am working on another project called The Joy of Data which will contain beginner friendly free courses to get started with R. Like Hans Rosling’s example of seeing “The Joy of Stats”, I hope you will get to experience joy in learning how to work with data.\nJoe Chelladurai"
+  },
+  {
+    "objectID": "book/chapter-1/index.html",
+    "href": "book/chapter-1/index.html",
+    "title": "Get, Set, Go",
+    "section": "",
+    "text": "In this chapter, we will complete setup and get ready to go."
+  },
+  {
+    "objectID": "book/chapter-2/index.html",
+    "href": "book/chapter-2/index.html",
+    "title": "New Section",
+    "section": "",
+    "text": "In this section we will discover how to create a new plot."
+  },
+  {
+    "objectID": "book/chapter-2/index.html#a-new-plot",
+    "href": "book/chapter-2/index.html#a-new-plot",
+    "title": "New Section",
+    "section": "",
+    "text": "In this section we will discover how to create a new plot."
+  },
+  {
+    "objectID": "book/chapter-2/index.html#another-plot",
+    "href": "book/chapter-2/index.html#another-plot",
+    "title": "New Section",
+    "section": "Another Plot",
+    "text": "Another Plot\nThere will be another plot discussion here."
+  },
+  {
+    "objectID": "book/index.html",
+    "href": "book/index.html",
+    "title": "Play with Data Book",
+    "section": "",
+    "text": "This is a place for the book."
+  },
+  {
+    "objectID": "book/index.html#preface",
+    "href": "book/index.html#preface",
+    "title": "Play with Data Book",
+    "section": "Preface",
+    "text": "Preface\nThis is a preface."
+  },
+  {
+    "objectID": "garden/code/index.html",
+    "href": "garden/code/index.html",
+    "title": "Code",
+    "section": "",
+    "text": "library(tidyverse)\nThe mtcars dataset has rownames. This makes it so that we need another step to process. I use forcats::fct_reorder within ggplot.\nggplot(mtcars, aes(x = mpg, y = forcats::fct_reorder(rownames(mtcars), mpg))) +\n  geom_bar(stat = \"identity\")\nAnother way to do this would be to preprocess.\nmtcars &lt;- mtcars |&gt; rownames_to_column(\"model\")\nmtcars &lt;- mtcars |&gt;\n  mutate(model = forcats::fct_reorder(model, mpg))\nggplot(mtcars, aes(x = mpg, y = model)) +\n  geom_bar(stat = \"identity\")"
+  },
+  {
+    "objectID": "garden/code/index.html#enhancing-the-plot",
+    "href": "garden/code/index.html#enhancing-the-plot",
+    "title": "Code",
+    "section": "Enhancing the Plot",
+    "text": "Enhancing the Plot\n\nggplot(mtcars, aes(x = mpg, y = model)) +\n  geom_bar(stat = \"identity\", width = .8) +\n  geom_text(aes(label = round(mpg)), hjust = 1.05, color  = \"white\") +\n  scale_x_continuous(expand = expansion(mult = c(0, .1))) +\n  theme(aspect.ratio = 2) +\n  theme(axis.ticks = element_blank()) +\n  theme(panel.grid.major.y = element_blank()) +\n  theme(panel.background = element_blank()) +\n  labs(x = NULL, \n       y = NULL,\n       title = \"Miles Per Gallon by Model\") +\n  theme(plot.title = element_text(color = \"#686868\", face = 'bold', size = 12, hjust = 0)) +\n  theme(plot.title.position = \"plot\")"
+  },
+  {
+    "objectID": "garden/code/index.html#ideas",
+    "href": "garden/code/index.html#ideas",
+    "title": "Code",
+    "section": "Ideas",
+    "text": "Ideas\nImportant is readability. Understand it quickly. Make it simple. Match the chart to the message.1 (See bottom of document for source)\nIn the above case, adding the labels is a little too much. Instead, The Economist style offers a different approach. This is not to say that text labels are bad. For this chart, it “feels” better to leave out the clutter from the labels.\n\nMove the x axis text to the top of the chart\nAdd x axis label (mpg) to the right of “30” in the x axis ticks label.\n\n\nggplot(mtcars, aes(x = mpg, y = model)) +\n  geom_bar(stat = \"identity\", width = .7) +\n  scale_x_continuous(expand = expansion(mult = c(0, .1)), position = \"top\") +\n  theme(aspect.ratio = 2) +\n  theme(axis.ticks.y = element_blank()) +\n  theme(axis.ticks.x = element_line(color = \"grey\")) +\n  theme(panel.grid.major.y = element_blank()) +\n # theme(panel.background = element_blank()) +\n  labs(x = NULL, \n       y = NULL,\n       title = \"Totota Corolla had the highest fuel \\nefficiency in the mtcars dataset\",\n       subtitle = \"Fuel efficiency measured by miles per gallon\",\n       caption = \"Source: mtcars dataset\") +\n  theme(plot.title = element_text(color = \"#686868\", face = 'bold', size = 12, hjust = 0)) +\n  theme(plot.subtitle = element_text(color = \"#686868\", size = 9, hjust = 0)) +\n  theme(plot.caption = element_text(color = \"#686868\")) +\n  theme(plot.title.position = \"plot\") +\n  theme(plot.caption.position = \"plot\") +\n  theme(axis.title.x = element_text(margin = margin(r = 10))) \n\n\n\n\nI just checked on my phone, and this isn’t mobile friendly.\n\nggplot(mtcars, aes(x = mpg, y = model)) +\n  geom_bar(stat = \"identity\", width = .7) +\n  scale_x_continuous(expand = expansion(mult = c(0, .1)), position = \"top\") +\n # theme(aspect.ratio = 2) +\n  theme(axis.ticks.y = element_blank()) +\n  theme(axis.ticks.x = element_line(color = \"grey\")) +\n  theme(panel.grid.major.y = element_blank()) +\n # theme(panel.background = element_blank()) +\n  labs(x = NULL, \n       y = NULL,\n       title = \"Totota Corolla had the highest fuel \\nefficiency in the mtcars dataset\",\n       subtitle = \"Fuel efficiency measured by miles per gallon\",\n       caption = \"Source: mtcars dataset\") +\n  theme(plot.title = element_text(color = \"#686868\", face = 'bold', size = 12, hjust = 0)) +\n  theme(plot.subtitle = element_text(color = \"#686868\", size = 9, hjust = 0)) +\n  theme(plot.caption = element_text(color = \"#686868\")) +\n  theme(plot.title.position = \"plot\") +\n  theme(plot.caption.position = \"plot\") +\n  theme(axis.title.x = element_text(margin = margin(r = 10))) \n\n\n\n\nThis was much better. However, if you are using RStudio, the inline plot in the qmd file does not reflect the figure sizes by width. The preview/render does reflect the new widths.\nThe font sizes are not readable. Partly because there are 32 cars, it may be a challenge.\n\nggplot(mtcars, aes(x = mpg, y = model)) +\n  geom_bar(stat = \"identity\", width = .7) +\n  scale_x_continuous(expand = expansion(mult = c(0, .1)), position = \"top\") +\n  theme(axis.ticks.y = element_blank()) +\n  theme(axis.ticks.x = element_line(color = \"grey\")) +\n  theme(panel.grid.major.y = element_blank()) +\n  labs(x = NULL, \n       y = NULL,\n       title = \"Totota Corolla had the highest fuel \\nefficiency in the mtcars dataset\",\n       subtitle = \"Fuel efficiency measured by miles per gallon\",\n       caption = \"Source: mtcars dataset\") +\n  theme(plot.title = element_text(color = \"#686868\", face = 'bold', size = 16, hjust = 0)) +\n  theme(plot.subtitle = element_text(color = \"#686868\", size = 11, hjust = 0)) +\n  theme(plot.caption = element_text(color = \"#686868\")) +\n  theme(plot.title.position = \"plot\") +\n  theme(plot.caption.position = \"plot\") +\n  theme(axis.title.x = element_text(margin = margin(r = 10))) +\n  theme(axis.text.y = element_text(size = 12))\n\n\n\n\nThis was much more readable. Again, the Quarto inline plot is deceiving.\nSee screenshot:\n\nLet’s make some more changes: 1. Increase subtitle font size 2. 3.\n\nggplot(mtcars, aes(x = mpg, y = model)) +\n  geom_bar(stat = \"identity\", width = .7) +\n  scale_x_continuous(expand = expansion(mult = c(0, .1)), position = \"top\") +\n  theme(axis.ticks.y = element_blank()) +\n  theme(axis.ticks.x = element_line(color = \"grey\")) +\n  theme(panel.grid.major.y = element_blank()) +\n  labs(x = NULL, \n       y = NULL,\n       title = \"Totota Corolla had the highest fuel \\nefficiency in the mtcars dataset\",\n       subtitle = \"Fuel efficiency measured by miles per gallon\",\n       caption = \"Source: mtcars dataset\") +\n  theme(plot.title = element_text(color = \"#686868\", face = 'bold', size = 16, hjust = 0)) +\n  theme(plot.subtitle = element_text(color = \"#686868\", size = 14, hjust = 0)) +\n  theme(plot.caption = element_text(color = \"#686868\")) +\n  theme(plot.title.position = \"plot\") +\n  theme(plot.caption.position = \"plot\") +\n  theme(axis.title.x = element_text(margin = margin(r = 10))) +\n  theme(axis.text.y = element_text(size = 12))"
+  },
+  {
+    "objectID": "garden/code/index.html#customising-fonts",
+    "href": "garden/code/index.html#customising-fonts",
+    "title": "Code",
+    "section": "Customising Fonts",
+    "text": "Customising Fonts\n\nlibrary(showtext)\nfont_add_google(\"Open Sans\")\nshowtext_auto()\n\nTo make this work with quarto or rmarkdown, we need to specify fig.showtext = TRUE https://github.com/yixuan/showtext/issues/51#issuecomment-879535052\n\nggplot(mtcars, aes(x = mpg, y = model)) +\n  geom_bar(stat = \"identity\", width = .7) +\n  scale_x_continuous(expand = expansion(mult = c(0, .1)), position = \"top\") +\n  theme(axis.ticks.y = element_blank()) +\n  theme(axis.ticks.x = element_line(color = \"grey\")) +\n  theme(panel.grid.major.y = element_blank()) +\n  labs(x = NULL, \n       y = NULL,\n       title = \"Totota Corolla had the highest fuel \\nefficiency in the mtcars dataset\",\n       subtitle = \"Fuel efficiency measured by miles per gallon\",\n       caption = \"Source: mtcars dataset\") +\n  theme(plot.title = element_text(color = \"#686868\", face = 'bold', size = 16, hjust = 0)) +\n  theme(plot.subtitle = element_text(color = \"#686868\", size = 12, hjust = 0)) +\n  theme(plot.caption = element_text(color = \"#686868\")) +\n  theme(plot.title.position = \"plot\") +\n  theme(plot.caption.position = \"plot\") +\n  theme(axis.title.x = element_text(margin = margin(r = 10))) +\n  theme(axis.text.y = element_text(size = 12)) +\n  theme(text = element_text(family = \"Open Sans\"))\n\n\n\n\nTO DO:\nWhat is a good aspect ratio for a bar chart?\nFor later:\n“Millennials more likely… bar chart has labels”. https://www.pewresearch.org/short-reads/2017/08/30/most-americans-especially-millennials-say-libraries-can-help-them-find-reliable-trustworthy-information/\nevamayray flipbookr\nSurvey data example:\nhttps://www.pewresearch.org/short-reads/2023/05/26/family-time-is-far-more-important-than-other-aspects-of-life-for-most-americans/\nSources:\n\n(Source: Analyst Academy - https://www.youtube.com/watch?v=cGGkAGBre3A)\n\n\n# Addressing tidyverse warnings example\nlibrary(dplyr)\nconflicted::conflicts_prefer(dplyr::filter)\n\n[conflicted] Will prefer dplyr::filter over any other package."
+  },
+  {
+    "objectID": "garden/gardening/index.html",
+    "href": "garden/gardening/index.html",
+    "title": "Gardening",
+    "section": "",
+    "text": "Digital Gardening\nInspired by digital gardening, I want to write down thoughts as I explore, wander, refine, and share. My creative process is more cyclical. I start working on things, then procrastinate, lose interest, and find interest again. This goes on and on and sometimes I lead it towards the end. So there are a lot of unfinished things."
+  },
+  {
+    "objectID": "garden.html",
+    "href": "garden.html",
+    "title": "Garden",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nCode\n\n\n\n\n\n\n\nundefined\n\n\n\n\n\n\n\nGardening\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome",
+    "section": "",
+    "text": "Welcome\nThis is a place where you can find links to the following:\n\nPlay with Data Book\nBlog\nNewsletters\nAnd a Digital Garden"
+  },
+  {
+    "objectID": "newsletters/01/index.html",
+    "href": "newsletters/01/index.html",
+    "title": "Newsletter #1",
+    "section": "",
+    "text": "In this blog, I would like to share experiments, half-cooked ideas, and data visualisation techniques. Some of these posts will be treated like a digital garden so expect things to change."
+  },
+  {
+    "objectID": "newsletters/01/index.html#a-new-place-to-share-sports-data-visualisation",
+    "href": "newsletters/01/index.html#a-new-place-to-share-sports-data-visualisation",
+    "title": "Newsletter #1",
+    "section": "",
+    "text": "In this blog, I would like to share experiments, half-cooked ideas, and data visualisation techniques. Some of these posts will be treated like a digital garden so expect things to change."
+  },
+  {
+    "objectID": "newsletters/01/index.html#what-i-plan-to-do",
+    "href": "newsletters/01/index.html#what-i-plan-to-do",
+    "title": "Newsletter #1",
+    "section": "What I Plan to Do",
+    "text": "What I Plan to Do\nOver the past year, I’ve created a few visualisations that I shared online. This website is a place where I hope to share more about the process and the visualisations that I create."
+  },
+  {
+    "objectID": "newsletters.html",
+    "href": "newsletters.html",
+    "title": "Newsletters",
+    "section": "",
+    "text": "Newsletter #1\n\n\n\n\n\n\n\nannouncement\n\n\n\n\nWelcome to my newsletter\n\n\n\n\n\n\nMay 31, 2023\n\n\nJoe Chelladurai\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/2023-31-5-first-post/index.html",
+    "href": "posts/2023-31-5-first-post/index.html",
+    "title": "Welcome to my blog",
+    "section": "",
+    "text": "In this blog, I would like to share experiments, half-cooked ideas, and data visualisation techniques. Some of these posts will be treated like a digital garden so expect things to change."
+  },
+  {
+    "objectID": "posts/2023-31-5-first-post/index.html#a-new-place-to-share-sports-data-visualisation",
+    "href": "posts/2023-31-5-first-post/index.html#a-new-place-to-share-sports-data-visualisation",
+    "title": "Welcome to my blog",
+    "section": "",
+    "text": "In this blog, I would like to share experiments, half-cooked ideas, and data visualisation techniques. Some of these posts will be treated like a digital garden so expect things to change."
+  },
+  {
+    "objectID": "posts/2023-31-5-first-post/index.html#what-i-plan-to-do",
+    "href": "posts/2023-31-5-first-post/index.html#what-i-plan-to-do",
+    "title": "Welcome to my blog",
+    "section": "What I Plan to Do",
+    "text": "What I Plan to Do\nOver the past year, I’ve created a few visualisations that I shared online. This website is a place where I hope to share more about the process and the visualisations that I create."
+  },
+  {
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Welcome to my blog\n\n\n\n\n\n\n\nannouncement\n\n\n\n\nA new place to share my data visualisations\n\n\n\n\n\n\nMay 31, 2023\n\n\nJoe Chelladurai\n\n\n\n\n\n\nNo matching items"
+  }
+]

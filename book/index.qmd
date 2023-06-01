@@ -1,0 +1,15 @@
+---
+id: book
+title: "Play with Data Book"
+sidebar_position: 1
+#listing:
+#  contents: 
+#   - "/*.qmd"
+#   - "/*/index.qmd"
+---
+
+This is a place for the book.
+
+## Preface
+
+This is a preface. 

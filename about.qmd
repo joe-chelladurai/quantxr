@@ -1,0 +1,10 @@
+---
+sidebar: false
+title: "About"
+---
+
+This is a place where I share Quantitative UX Resources. I am looking for a job. Please hire me.
+
+Joe Chelladurai
+
+

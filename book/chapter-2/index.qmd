@@ -1,0 +1,13 @@
+---
+layout: default
+title: New Section
+---
+
+## A New Plot
+
+In this section we will discover how to create a new plot.
+
+
+## Another Plot
+
+There will be another plot discussion here.

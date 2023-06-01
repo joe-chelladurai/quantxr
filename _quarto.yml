@@ -1,0 +1,35 @@
+project:
+  type: website
+  output-dir: public
+
+website:
+  title: "Quantitative Experience Research"
+  navbar:
+    title: false
+    pinned: true
+    collapse: false
+    left:
+      - href: index.qmd
+        text: Play with Data
+      - text: Book
+        file: book/index.qmd
+      - posts.qmd
+      - text: "More"
+        menu:
+          - newsletters.qmd
+          - garden.qmd
+          - about.qmd
+
+  sidebar:
+    - title: Book
+      collapse-level: 1
+      contents: book/**
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+

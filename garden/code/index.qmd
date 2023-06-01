@@ -1,0 +1,245 @@
+---
+title: "Code"
+---
+
+```{r}
+#| warning: false
+library(tidyverse)
+```
+
+The mtcars dataset has rownames. This makes it so that we need another step to process. I use forcats::fct_reorder within ggplot.
+
+```{r}
+ ggplot(mtcars, aes(x = mpg, y = forcats::fct_reorder(rownames(mtcars), mpg))) +
+  geom_bar(stat = "identity")
+
+```
+
+Another way to do this would be to preprocess.
+
+```{r}
+mtcars <- mtcars |> rownames_to_column("model")
+```
+
+```{r}
+mtcars <- mtcars |>
+  mutate(model = forcats::fct_reorder(model, mpg))
+```
+
+```{r}
+#| eval: false
+ggplot(mtcars, aes(x = mpg, y = model)) +
+  geom_bar(stat = "identity")
+```
+
+## Enhancing the Plot
+
+```{r}
+ggplot(mtcars, aes(x = mpg, y = model)) +
+  geom_bar(stat = "identity", width = .8) +
+  geom_text(aes(label = round(mpg)), hjust = 1.05, color  = "white") +
+  scale_x_continuous(expand = expansion(mult = c(0, .1))) +
+  theme(aspect.ratio = 2) +
+  theme(axis.ticks = element_blank()) +
+  theme(panel.grid.major.y = element_blank()) +
+  theme(panel.background = element_blank()) +
+  labs(x = NULL, 
+       y = NULL,
+       title = "Miles Per Gallon by Model") +
+  theme(plot.title = element_text(color = "#686868", face = 'bold', size = 12, hjust = 0)) +
+  theme(plot.title.position = "plot")
+
+
+
+```
+
+## Ideas
+
+Important is readability. Understand it quickly. Make it simple. Match the chart to the message.1 (See bottom of document for source)
+
+In the above case, adding the labels is a little too much. Instead, The Economist style offers a different approach. This is not to say that text labels are bad. For this chart, it "feels" better to leave out the clutter from the labels.
+
+1.  Move the x axis text to the top of the chart
+2.  Add x axis label (mpg) to the right of "30" in the x axis ticks label.
+
+```{r}
+ggplot(mtcars, aes(x = mpg, y = model)) +
+  geom_bar(stat = "identity", width = .7) +
+  scale_x_continuous(expand = expansion(mult = c(0, .1)), position = "top") +
+  theme(aspect.ratio = 2) +
+  theme(axis.ticks.y = element_blank()) +
+  theme(axis.ticks.x = element_line(color = "grey")) +
+  theme(panel.grid.major.y = element_blank()) +
+ # theme(panel.background = element_blank()) +
+  labs(x = NULL, 
+       y = NULL,
+       title = "Totota Corolla had the highest fuel \nefficiency in the mtcars dataset",
+       subtitle = "Fuel efficiency measured by miles per gallon",
+       caption = "Source: mtcars dataset") +
+  theme(plot.title = element_text(color = "#686868", face = 'bold', size = 12, hjust = 0)) +
+  theme(plot.subtitle = element_text(color = "#686868", size = 9, hjust = 0)) +
+  theme(plot.caption = element_text(color = "#686868")) +
+  theme(plot.title.position = "plot") +
+  theme(plot.caption.position = "plot") +
+  theme(axis.title.x = element_text(margin = margin(r = 10))) 
+
+
+```
+
+I just checked on my phone, and this isn't mobile friendly.
+
+```{r}
+#| fig-width: 4
+#| fig-height: 8
+
+ggplot(mtcars, aes(x = mpg, y = model)) +
+  geom_bar(stat = "identity", width = .7) +
+  scale_x_continuous(expand = expansion(mult = c(0, .1)), position = "top") +
+ # theme(aspect.ratio = 2) +
+  theme(axis.ticks.y = element_blank()) +
+  theme(axis.ticks.x = element_line(color = "grey")) +
+  theme(panel.grid.major.y = element_blank()) +
+ # theme(panel.background = element_blank()) +
+  labs(x = NULL, 
+       y = NULL,
+       title = "Totota Corolla had the highest fuel \nefficiency in the mtcars dataset",
+       subtitle = "Fuel efficiency measured by miles per gallon",
+       caption = "Source: mtcars dataset") +
+  theme(plot.title = element_text(color = "#686868", face = 'bold', size = 12, hjust = 0)) +
+  theme(plot.subtitle = element_text(color = "#686868", size = 9, hjust = 0)) +
+  theme(plot.caption = element_text(color = "#686868")) +
+  theme(plot.title.position = "plot") +
+  theme(plot.caption.position = "plot") +
+  theme(axis.title.x = element_text(margin = margin(r = 10))) 
+```
+
+This was much better. However, if you are using RStudio, the inline plot in the qmd file does not reflect the figure sizes by width. The preview/render does reflect the new widths.
+
+The font sizes are not readable. Partly because there are 32 cars, it may be a challenge.
+
+```{r}
+#| fig-width: 4
+#| fig-height: 8
+
+ggplot(mtcars, aes(x = mpg, y = model)) +
+  geom_bar(stat = "identity", width = .7) +
+  scale_x_continuous(expand = expansion(mult = c(0, .1)), position = "top") +
+  theme(axis.ticks.y = element_blank()) +
+  theme(axis.ticks.x = element_line(color = "grey")) +
+  theme(panel.grid.major.y = element_blank()) +
+  labs(x = NULL, 
+       y = NULL,
+       title = "Totota Corolla had the highest fuel \nefficiency in the mtcars dataset",
+       subtitle = "Fuel efficiency measured by miles per gallon",
+       caption = "Source: mtcars dataset") +
+  theme(plot.title = element_text(color = "#686868", face = 'bold', size = 16, hjust = 0)) +
+  theme(plot.subtitle = element_text(color = "#686868", size = 11, hjust = 0)) +
+  theme(plot.caption = element_text(color = "#686868")) +
+  theme(plot.title.position = "plot") +
+  theme(plot.caption.position = "plot") +
+  theme(axis.title.x = element_text(margin = margin(r = 10))) +
+  theme(axis.text.y = element_text(size = 12))
+```
+
+This was much more readable. Again, the Quarto inline plot is deceiving.
+
+See screenshot:
+
+![](images/quarto%20-%20inline%20plot.png)
+
+
+
+Let's make some more changes:
+1. Increase subtitle font size
+2. 
+3.
+
+```{r}
+#| fig-width: 4
+#| fig-height: 8
+
+ggplot(mtcars, aes(x = mpg, y = model)) +
+  geom_bar(stat = "identity", width = .7) +
+  scale_x_continuous(expand = expansion(mult = c(0, .1)), position = "top") +
+  theme(axis.ticks.y = element_blank()) +
+  theme(axis.ticks.x = element_line(color = "grey")) +
+  theme(panel.grid.major.y = element_blank()) +
+  labs(x = NULL, 
+       y = NULL,
+       title = "Totota Corolla had the highest fuel \nefficiency in the mtcars dataset",
+       subtitle = "Fuel efficiency measured by miles per gallon",
+       caption = "Source: mtcars dataset") +
+  theme(plot.title = element_text(color = "#686868", face = 'bold', size = 16, hjust = 0)) +
+  theme(plot.subtitle = element_text(color = "#686868", size = 14, hjust = 0)) +
+  theme(plot.caption = element_text(color = "#686868")) +
+  theme(plot.title.position = "plot") +
+  theme(plot.caption.position = "plot") +
+  theme(axis.title.x = element_text(margin = margin(r = 10))) +
+  theme(axis.text.y = element_text(size = 12))
+```
+
+
+## Customising Fonts
+
+```{r}
+#| warning: false
+
+library(showtext)
+font_add_google("Open Sans")
+showtext_auto()
+```
+
+
+To make this work with quarto or rmarkdown, we need to specify fig.showtext = TRUE 
+https://github.com/yixuan/showtext/issues/51#issuecomment-879535052
+
+```{r fig.showtext=TRUE}
+#| fig-width: 4
+#| fig-height: 8
+
+
+ggplot(mtcars, aes(x = mpg, y = model)) +
+  geom_bar(stat = "identity", width = .7) +
+  scale_x_continuous(expand = expansion(mult = c(0, .1)), position = "top") +
+  theme(axis.ticks.y = element_blank()) +
+  theme(axis.ticks.x = element_line(color = "grey")) +
+  theme(panel.grid.major.y = element_blank()) +
+  labs(x = NULL, 
+       y = NULL,
+       title = "Totota Corolla had the highest fuel \nefficiency in the mtcars dataset",
+       subtitle = "Fuel efficiency measured by miles per gallon",
+       caption = "Source: mtcars dataset") +
+  theme(plot.title = element_text(color = "#686868", face = 'bold', size = 16, hjust = 0)) +
+  theme(plot.subtitle = element_text(color = "#686868", size = 12, hjust = 0)) +
+  theme(plot.caption = element_text(color = "#686868")) +
+  theme(plot.title.position = "plot") +
+  theme(plot.caption.position = "plot") +
+  theme(axis.title.x = element_text(margin = margin(r = 10))) +
+  theme(axis.text.y = element_text(size = 12)) +
+  theme(text = element_text(family = "Open Sans"))
+```
+
+TO DO:
+
+What is a good aspect ratio for a bar chart?
+
+For later:
+
+"Millennials more likely... bar chart has labels". https://www.pewresearch.org/short-reads/2017/08/30/most-americans-especially-millennials-say-libraries-can-help-them-find-reliable-trustworthy-information/
+
+evamayray flipbookr
+
+Survey data example:
+
+https://www.pewresearch.org/short-reads/2023/05/26/family-time-is-far-more-important-than-other-aspects-of-life-for-most-americans/
+
+Sources:
+
+1.  (Source: Analyst Academy - https://www.youtube.com/watch?v=cGGkAGBre3A)
+
+
+```{r}
+# Addressing tidyverse warnings example
+library(dplyr)
+conflicted::conflicts_prefer(dplyr::filter)
+```
