@@ -1,0 +1,80 @@
+
+---
+title: "Report"
+---
+```{r}
+#| warning: false
+#| message: false
+library(tidyverse)
+```
+
+
+```{r}
+data <- read.csv("../../data/sample_data.csv")
+data <- data |> select(-1)
+```
+
+```{r}
+psych::describe(data) |>
+    select(-vars) |>
+    knitr::kable()
+```
+
+```{r}
+labels <- tribble(
+    ~var, ~label,
+    "q_1", "I think that I would like to use this system frequently",
+    "q_2", "I found the system unnecessarily complex",
+    "q_3", "I thought the system was easy to use",
+    "q_4", "I think that I would need the support of a technical person to be able to use this system",
+    "q_5", "I found the various functions in this system were well integrated",
+    "q_6", "I thought there was too much inconsistency in this system",
+    "q_7", "I would imagine that most people would learn to use this system very quickly",
+    "q_8", "I found the system very cumbersome to use",
+    "q_9", "I felt very confident using the system",
+    "q_10", "I needed to learn a lot of things before I could get going with this system"
+)
+
+```
+
+```{r}
+data_long <- data |>
+    select(-sus) |>
+    gather() |>
+    rename(var = key) |> 
+    mutate(text = case_match( 
+        value,
+        1 ~ "Strongly disagree",
+        2 ~ "Somewhat disagree",
+        3 ~ "Neither",
+        4 ~ "Somewhat agree",
+        5 ~ "Strongly agree"
+    )) |> 
+    left_join(labels, by = "var") |>
+    select(var, label, value, text)
+```
+
+
+```{r}
+data_long <- data_long |> mutate(var = fct_inorder(var))
+```
+
+```{r}
+#| fig.height: 3
+#| fig.width: 5
+data_long |> 
+    ggplot(aes(x = value)) +
+    geom_density() +
+    facet_wrap(~var, ncol = 5) +
+    labs(
+        title = "Distribution of Each Question in the System Usability Scale",
+        x = NULL, y = NULL,
+        subtitle = "X axis values are from 1 to 5"
+    ) +
+    theme(
+        axis.text = element_blank(),
+        axis.ticks = element_blank()
+    )
+```
+
+Reverse code this so it runs in the same direction

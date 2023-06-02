@@ -8,7 +8,4 @@ format:
 
 This is a place where you can find links to the following:
 
-1. Play with Data Book
-2. Blog
-3. Newsletters
-4. And a Digital Garden
+Quantitative Experience Research

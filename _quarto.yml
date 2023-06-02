@@ -9,16 +9,18 @@ website:
     pinned: true
     collapse: false
     left:
-      - href: index.qmd
-        text: Play with Data
-      - text: Book
-        file: book/index.qmd
-      - posts.qmd
-      - text: "More"
+      - text: "Quantitative Experience Research"
         menu:
+          - text: Book
+          - file: book/index.qmd
+          - text: Newsletter
           - newsletters.qmd
+          - text: Garden
           - garden.qmd
+          - text: About
           - about.qmd
+          - text: Blog
+          - posts.qmd
 
   sidebar:
     - title: Book

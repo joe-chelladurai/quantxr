@@ -1,6 +1,6 @@
 ---
 id: book
-title: "Play with Data Book"
+title: "Quantitative Experience Research with R"
 sidebar_position: 1
 #listing:
 #  contents: 
