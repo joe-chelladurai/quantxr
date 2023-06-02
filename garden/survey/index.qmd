@@ -1,562 +1,100 @@
 ---
-sidebar: false
-title: "Plotting survey results"
+title: "Untitled"
+editor: visual
 ---
 
 
+
 ```{r}
-#| warning: false
 library(tidyverse)
 ```
 
-```{r}
-rep(rnorm(1:5))
-```
+70.05	
+69.325	
 
 ```{r}
-sample_data <- tribble(~id, ~sus_01, ~sus_02, ~sus_03, ~sus_04, ~sus_05,
-                       ~sus_06, ~sus_07, ~sus_08, ~sus_09, ~sus_10,
-                       "id_01", 1, 2, 1, 3, 4, 1, 5, 6, 7, 1, )
-```
+# Initialize a global seed
+set.seed(9)
 
 
-```{r}
-scores <- 80 + 23 * scale(rnorm(172)) 
-scores
-```
-
-
-```{r}
-set.seed(123) # For reproducibility
-
-# Generate normal random numbers
-n <- 1000 # Number of numbers you want to generate
-mean <- 80
-sd <- 23
-x <- rnorm(n, mean=mean, sd=sd)
-
-# Rescale to the range 1 to 100
-min_val <- 1
-max_val <- 100
-rescaled_x <- min_val + (max_val - min_val) * ((x - min(x)) / (max(x) - min(x)))
-
-# Check mean and sd of rescaled values
-mean(rescaled_x)
-sd(rescaled_x)
-
-```
-```{r}
-data <- rnorm(5, mean = 0, sd = 1)
-```
-
-```{r}
-data*10
-```
-
-```{r}
-install.packages("random")
-```
-
-```{r}
-data <- random::randomNumbers(n = 100, min = 1, max = 100)
-```
-
-```{r}
-dput(data)
-```
-
-
-```{r}
-random::randomNumbers(n = 100, min = 1, max = 100)
-```
-
-```{r}
-# Define the matrix
-data <- structure(c(35L, 76L, 31L, 76L, 63L, 72L, 81L, 85L, 19L, 80L, 
-87L, 17L, 1L, 18L, 86L, 80L, 20L, 31L, 77L, 51L, 72L, 57L, 7L, 
-9L, 81L, 91L, 51L, 22L, 72L, 18L, 23L, 33L, 51L, 74L, 30L, 75L, 
-67L, 91L, 90L, 9L, 80L, 20L, 64L, 45L, 35L, 52L, 29L, 47L, 40L, 
-42L, 58L, 32L, 45L, 1L, 81L, 82L, 72L, 44L, 78L, 49L, 77L, 39L, 
-4L, 65L, 88L, 73L, 37L, 60L, 83L, 44L, 98L, 37L, 32L, 18L, 48L, 
-58L, 75L, 55L, 69L, 95L, 75L, 36L, 82L, 21L, 27L, 86L, 75L, 92L, 
-69L, 44L, 64L, 54L, 16L, 46L, 7L, 69L, 69L, 66L, 24L, 79L), 
-dim = c(20L, 5L), dimnames = list(NULL, c("V1", "V2", "V3", "V4", "V5")))
-
-# Desired mean and standard deviation
-new_mean <- 80
-new_sd <- 23
-
-# Standardize the data
-standardized_data <- (data - mean(data)) / sd(data)
-
-# Scale to new mean and standard deviation
-adjusted_data <- standardized_data * new_sd + new_mean
-
-```
-
-```{r}
-adjusted_data
-```
-
-```{r}
-set.seed(42) # For reproducibility
-
-mean <- 80
-sd <- 23
-size <- 1000 # number of numbers you want to generate
-
-numbers <- c() # initialize an empty vector
-
-while(length(numbers) < size) {
-  # generate a number from a normal distribution
-  number <- rnorm(1, mean, sd)
+generate_numbers <- function(n, ratio, seed) {
+  # Generate n numbers from a beta distribution with alpha > beta
+  set.seed(seed)
   
-  # round the number to an integer
-  number <- round(number)
+  alpha <- 1
+  beta <- 1 / ratio  # take the reciprocal to get beta
+
+  skewed <- rbeta(n, alpha, beta)
   
-  # if the number is within the 0-100 range, add it to the vector
-  if(number >= 0 & number <= 100) {
-    numbers <- c(numbers, number)
-  }
+  # Scale numbers to be between 1 and 5
+  skewed_scaled <- 1 + 4 * skewed
+  return(round(skewed_scaled))
 }
 
-numbers |> as_tibble() |> ggplot(aes(x = value)) + geom_density()
+q_01 <- generate_numbers(100, 6/2, sample(1:10))
+q_02 <- generate_numbers(100, 1/4, sample(11:20))
+q_03 <- generate_numbers(100, 4/2, sample(21:30))
+q_04 <- generate_numbers(100, 1/4, sample(31:40))
+q_05 <- generate_numbers(100, 4/2, sample(41:50))
+q_06 <- generate_numbers(100, 6/4, sample(51:60))
+q_07 <- generate_numbers(100, 2/2, sample(61:70))
+q_08 <- generate_numbers(100, 2/4, sample(71:80))
+q_09 <- generate_numbers(100, 1/2, sample(81:90))
+q_10 <- generate_numbers(100, 1/4, sample(91:100))
 
+df <- data.frame(q_01, q_02, q_03, q_04, q_05, q_06, q_07, q_08, q_09, q_10)
+
+df |> gather() |> 
+  ggplot(aes(x = value)) + geom_density() + facet_wrap( ~key)
+
+
+df |> 
+  mutate(total_odd = rowSums(select(df, ends_with(c("1", "3", "5", "7", "9"))), na.rm = TRUE)) |> 
+  mutate(total_even = rowSums(select(df, ends_with(c("0", "2", "4", "6", "8"))), na.rm = TRUE)) |> 
+  mutate(total_odd = total_odd - 5) |> 
+  mutate(total_even = 25 - total_even) |> 
+  mutate(total = total_odd + total_even) |> 
+  mutate(total = total * 2.5) |> summarise(mean = mean(total))
 ```
 
 ```{r}
-# set seed for reproducibility
-set.seed(123)
-
-# generate 10 random numbers
-random_numbers <- runif(10, min = 1, max = 10)
-
-# scale them so they add up to 81
-scaled_numbers <- random_numbers / sum(random_numbers) * 81
-
-# Correct numbers that fall out of range due to rounding errors
-scaled_numbers[scaled_numbers < 1] <- 1
-scaled_numbers[scaled_numbers > 10] <- 10
-
-# If the sum is not exactly 81 due to the adjustments, correct the first number
-# This may push the first number slightly out of range
-scaled_numbers[1] <- scaled_numbers[1] + (81 - sum(scaled_numbers))
-
-# print the numbers
-print(scaled_numbers)
-
-# verify they sum to 81
-print(sum(scaled_numbers))
-
-scaled_numbers
-
-```
-```{r}
-# set seed for reproducibility
-set.seed(123)
-
-desired_sum <- 81
-min_val <- 1
-max_val <- 10
-n <- 10
-
-repeat {
-  # Generate random numbers
-  random_numbers <- runif(n, min = min_val, max = max_val)
-  
-  # Scale them so they add up to the desired sum
-  scaled_numbers <- random_numbers / sum(random_numbers) * desired_sum
-  
-  # Check if all numbers are within the desired range
-  if(all(scaled_numbers >= min_val & scaled_numbers <= max_val)) {
-    break
-  }
-}
-
-# Print the numbers
-print(round(scaled_numbers))
-
-# Verify they sum to the desired sum
-print(sum(scaled_numbers))
-
-```
-
-```{r}
-# define the desired sums and corresponding seeds
-desired_sums <- c(81, 75, 51, 60, 85)
-seeds <- c(123, 456, 789, 101112, 131415)
-
-# initialize an empty data frame
-df <- data.frame(matrix(ncol = 11, nrow = 0))
-colnames(df) <- c(paste0("V", 1:10), "Sum")
-# for each desired sum
-for(i in 1:length(desired_sums)) {
-  # set the seed
-  set.seed(seeds[i])
-  
-  repeat {
-    # Generate random numbers
-    random_numbers <- runif(10, min = 1, max = 10)
-    
-    # Scale them so they add up to the desired sum
-    scaled_numbers <- random_numbers / sum(random_numbers) * desired_sums[i]
-    
-    # Check if all numbers are within the desired range
-    if(all(scaled_numbers >= 1 & scaled_numbers <= 10)) {
-      break
-    }
-  }
-
-  # add the random numbers and the sum to the data frame
-  df <- rbind(df, c(scaled_numbers, sum(scaled_numbers)))
-}
-
-# print the data frame
-print(df)
-
+rnorm(1, mean = 2, sd = 1)
 ```
 
 
-```{r}
-# set seed for reproducibility
-set.seed(123)
 
-# generate 10 random numbers
-random_numbers <- runif(10)
 
-# scale them so they add up to 81
-scaled_numbers <- random_numbers / sum(random_numbers) * 81
+Step 1: Convert the scale into number for each of the 10 questions
 
-# print the numbers
-print(scaled_numbers)
+Strongly Disagree: 1 point
+Disagree: 2 points
+Neutral: 3 points
+Agree: 4 points
+Strongly Agree: 5 points
+Step 2: Calculate
 
-# verify they sum to 81
-print(sum(scaled_numbers))
+X = Sum of the points for all odd-numbered questions – 5
+Y = 25 – Sum of the points for all even-numbered questions
+SUS Score = (X + Y) x 2.5
+The rationale behind the calculation is very intuitive. The total score is 100 and each of the questions has a weight of 10 points.
 
-```
+As odd-numbered questions are all in a positive tone, if the response is strongly agree, you will want to give them the maximum point which is 10 for each question. If the response is strongly disagree, you will want to give them the minimum point which is 0. By subtracting 1 from each of the odd-numbered questions, you ensure that minimum is 0. After which, by multiplying by 2.5, you ensure that the maximum is 10 for each of the questions.
 
-```{r}
-library(stats)
+Vice versa, for the even-numbered questions in a negative tone,  if the response is strongly agree, you will want to give them the minimum point which is 0 for each question. If the response is strongly disagree, you will want to give them the minimum point which is 0. As such, by subtracting the points of each question from 5, you ensure that minimum is 0. After which, by multiplying by 2.5, you ensure that the maximum is 10 for each of the questions.
 
-calculate_sus_score <- function(scores) {
-  X <- sum(scores[seq(1, length(scores), 2)]) - 5
-  Y <- 25 - sum(scores[seq(2, length(scores), 2)])
-  return((X + Y) * 2.5)
-}
+ 
 
-objective_function <- function(scores, target_sus_score) {
-  sus_score <- calculate_sus_score(scores)
-  return(abs(sus_score - target_sus_score))
-}
+ 
 
-generate_scores_from_sus <- function(sus_score) {
-  initial_guess <- rep(3, 10)
-  lower_bounds <- rep(1, 10)
-  upper_bounds <- rep(5, 10)
-  result <- optim(
-    initial_guess,
-    objective_function,
-    gr = NULL,
-    target_sus_score = sus_score,
-    method = "L-BFGS-B",
-    lower = lower_bounds,
-    upper = upper_bounds
-  )
-  if (result$convergence == 0) {
-    return(round(result$par))
-  } else {
-    return(NULL)
-  }
-}
+Interpreting System Usability Scale (SUS) Score
+SUS score will be able to tell you your usability performance in the aspects of effectiveness, efficiency, and overall ease of use. Although each responses yield a score on a scale of 0 – 100, do not mistake it as a percentage or percentile.
 
-sus_score <- 81
-scores <- generate_scores_from_sus(sus_score)
-print(scores)
+The average SUS score is 68. This simply means that a score of 68 will just put you at 50th percentile. Below is the general guideline on the interpretation of SUS score:
 
-```
-
-```{r}
-library(stats)
-
-# Define the functions as before
-
-calculate_sus_score <- function(scores) {
-  X <- sum(scores[seq(1, length(scores), 2)]) - 5
-  Y <- 25 - sum(scores[seq(2, length(scores), 2)])
-  return((X + Y) * 2.5)
-}
-
-objective_function <- function(scores, target_sus_score) {
-  sus_score <- calculate_sus_score(scores)
-  return(abs(sus_score - target_sus_score))
-}
-
-generate_scores_from_sus <- function(sus_score) {
-  initial_guess <- rep(3, 10)
-  lower_bounds <- rep(1, 10)
-  upper_bounds <- rep(5, 10)
-  result <- optim(
-    initial_guess,
-    objective_function,
-    gr = NULL,
-    target_sus_score = sus_score,
-    method = "L-BFGS-B",
-    lower = lower_bounds,
-    upper = upper_bounds
-  )
-  if (result$convergence == 0) {
-    return(round(result$par))
-  } else {
-    return(NULL)
-  }
-}
-
-# Generate scores for each SUS score
-
-sus_scores <- c(81, 85, 75, 90, 78, 82, 77, 80, 79, 84)  # replace with your SUS scores
-
-df <- data.frame()
-
-for (sus_score in sus_scores) {
-  scores <- generate_scores_from_sus(sus_score)
-  
-  if (!is.null(scores)) {
-    temp_df <- data.frame(t(scores))
-    temp_df$SUS_score <- sus_score
-    df <- rbind(df, temp_df)
-  }
-}
-
-names(df) <- c(paste0("Question_", 1:10), "SUS_score")
-
-print(df)
-
-```
-
-```{r}
-set.seed(123) # optional, for reproducibility
-
-random_integers <- sample(1:8, 9, replace = TRUE) # generate 9 random integers between 1 and 8
-random_integers <- c(random_integers, 81 - sum(random_integers)) # set 10th number to make the sum 81
-
-print(random_integers)
-print(sum(random_integers)) # should print 81
-
-```
-
-
-```{r}
-study_summary <- data.frame(
-  metrics = c("N", "Minimum", "Maximum", "Mean", "Variance", "Standard Deviation", 
-              "Standard Error", "Skewness", "1st Quartile", "Median", 
-              "3rd Quartile", "Interquartile Range", "Critical Z (99.9)", 
-              "Critical d (99.9)", "99.9% CI Upper Limit", "99.9% CI Lower Limit"),
-  study_1 = c(2324, 0.0, 100.0, 70.14, 471.32, 21.71, 0.45, NA, 55.0, 75.0, 
-            87.5, 32.5, 3.09, 1.39, 71.53, 68.75),
-  study_2 = c(324, 7.5, 100.0, 62.10, 494.38, 22.24, 1.24, -0.43, 45.0, 65.0, 
-              75.0, 30.0, 3.09, 3.82, 65.92, 58.28),
-  study_2_usability = c(324, 0.0, 100.0, 59.4, 531.54, 23.06, 1.28, -0.38, 40.6, 62.5, 
-             78.1, 37.5, 3.09, 3.96, 63.40, 55.48),
-  study_2_learnability = c(324, 0.0, 100.0, 72.7, 674.47, 25.97, 1.44, -0.80, 50.0, 75.0, 
-                100.0, 50.0, 3.09, 4.46, 77.18, 68.27)
-)
-
-print(study_summary)
-```
-
-
-```{r}
-round(81/2.5)
-```
-```{r}
-
-```
-
-
-```{r}
-desired_sums <- round(desired_sums/2.5)
-```
-
-```{r}
-# define the desired sums and corresponding seeds
-desired_sums <- c(81, 75, 51, 60, 85)
-
-
-
-seeds <- c(123, 456, 789, 101112, 131415)
-
-# initialize an empty data frame
-df <- data.frame(matrix(ncol = 11, nrow = 0))
-colnames(df) <- c(paste0("V", 1:10), "Sum")
-# for each desired sum
-for(i in 1:length(desired_sums)) {
-  # set the seed
-  set.seed(seeds[i])
-  
-  repeat {
-    # Generate random numbers
-    random_numbers <- runif(10, min = 0, max = 4)
-    
-    # Scale them so they add up to the desired sum
-    scaled_numbers <- random_numbers / sum(random_numbers) * desired_sums[i]
-    
-    # Check if all numbers are within the desired range
-    if(all(scaled_numbers >= 0 & scaled_numbers <= 4)) {
-      break
-    }
-  }
-
-  # add the random numbers and the sum to the data frame
-  df <- rbind(df, c(scaled_numbers, sum(scaled_numbers)))
-}
-
-# print the data frame
-print(df)
-
-
-
-
-```
-
-```{r}
-# Set the major seed
-set.seed(1000)
-
-# Define the desired sums
-desired_sums <- c(81, 75, 51, 60, 85)
-
-# Generate individual seeds using the major seed
-seeds <- sample(1:1e6, size = length(desired_sums))
-
-# Initialize an empty data frame
-df <- data.frame(matrix(ncol = 11, nrow = 0))
-
-# Define more meaningful column names
-colnames(df) <- c(paste0("RandomNumber", 1:10), "DesiredSum")
-
-# For each desired sum
-for(i in 1:length(desired_sums)) {
-  # Set the seed
-  set.seed(seeds[i])
-  
-  repeat {
-    # Generate random numbers
-    random_numbers <- runif(10, min = 0, max = 4)
-    
-    # Scale them so they add up to the desired sum
-    scaled_numbers <- random_numbers / sum(random_numbers) * desired_sums[i]
-    
-    # Check if all numbers are within the desired range
-    if(all(scaled_numbers >= 0 & scaled_numbers <= 4)) {
-      break
-    }
-  }
-
-  # Create a new dataframe for the current iteration
-  df_current <- data.frame(t(c(scaled_numbers, sum(scaled_numbers))))
-  colnames(df_current) <- colnames(df)
-  
-  # Add the current dataframe to the original dataframe
-  df <- rbind(df, df_current)
-}
-
-# Print the data frame
-print(df)
-
-```
-
-```{r}
-# Set the major seed
-set.seed(1000)
-
-# Define the desired sums
-desired_sums <- c(81, 75, 51, 60, 85)/2.5
-
-# Generate individual seeds using the major seed
-seeds <- sample(1:1e6, size = length(desired_sums))
-
-# Initialize an empty data frame
-df <- data.frame(matrix(ncol = 11, nrow = 0))
-
-# Define more meaningful column names
-colnames(df) <- c(paste0("q_", 1:10), "DesiredSum")
-
-# Maximum number of attempts to generate valid scaled numbers
-max_attempts <- 100
-
-# For each desired sum
-for(i in 1:length(desired_sums)) {
-  # Set the seed
-  set.seed(seeds[i])
-  
-  # Initialize attempt counter
-  attempt <- 0
-  
-  repeat {
-    # Generate random numbers
-    random_numbers <- runif(10, min = 0, max = 4)
-    
-    # Scale them so they add up to the desired sum
-    scaled_numbers <- random_numbers / sum(random_numbers) * desired_sums[i]
-    
-    # Check if all numbers are within the desired range or maximum attempts reached
-    attempt <- attempt + 1
-    if(all(scaled_numbers >= 0 & scaled_numbers <= 4) || attempt >= max_attempts) {
-      break
-    }
-  }
-
-  # Create a new dataframe for the current iteration
-  df_current <- data.frame(t(c(scaled_numbers, sum(scaled_numbers))))
-  colnames(df_current) <- colnames(df)
-  
-  # Add the current dataframe to the original dataframe
-  df <- rbind(df, df_current)
-}
-
-# Print the data frame
-print(df)
-
-```
-
-
-```{r}
-# Define the desired sums and corresponding seeds
-desired_sums <- c(81, 75, 51, 60, 85)
-desired_sums <- desired_sums/2.5
-seeds <- c(123, 456, 789, 101112, 131415)
-
-# Initialize an empty data frame
-df <- data.frame(matrix(ncol = 11, nrow = 0))
-#colnames(df) <- c(paste0("q_", 1:10), "Sum")
-
-# For each desired sum
-for(i in 1:length(desired_sums)) {
-  # Set the seed
-  set.seed(seeds[i])
-  
-  repeat {
-    # Generate random numbers
-    random_numbers <- runif(10, min = 0, max = 4)
-    
-    # Scale them so they add up to the desired sum
-    scaled_numbers <- random_numbers / sum(random_numbers) * desired_sums[i]
-    
-    # Check if all numbers are within the desired range
-    if(all(scaled_numbers >= 0 & scaled_numbers <= 4)) {
-      break
-    }
-  }
-
-  scaled_numbers <- round(scaled_numbers)
-  # Add the random numbers and the sum to the data frame
-  df_temp <- as.data.frame(t(c(scaled_numbers, sum(scaled_numbers))))
-  names(df_temp) <- c(paste0("q_", 1:10), "Sum")
-  df <- rbind(df, df_temp)
-}
-
-# Print the data frame
-print(df)
-
-```
-
+SUS Score	Grade	Adjective Rating
+> 80.3	A	Excellent
+68 – 80.3	B	Good
+68	C	Okay
+51 – 68	D	Poor
+< 51	F	Awful
+ 
