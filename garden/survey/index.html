@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.361">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quantitative Experience Research - Untitled</title>
+<title>Quantitative Experience Research - Simulated SUS Datasets</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -88,8 +88,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
 
@@ -104,25 +103,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand navbar-dark ">
       <div class="navbar-container container-fluid">
           <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-quantitative-experience-research" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
- <span class="menu-text">Quantitative Experience Research</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-quantitative-experience-research">    
-        <li class="dropdown-header">Books</li>
-        <li>
-    <a class="dropdown-item" href="../../book/index.html" rel="" target="">
- <span class="dropdown-text">Quantitative Experience Research with R</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Play with Data</span></a>
   </li>  
-        <li class="dropdown-header">Newsletter</li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../book/index.html" rel="" target="">
+ <span class="menu-text">Book</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html" rel="" target="">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">More</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-more">    
         <li>
     <a class="dropdown-item" href="../../newsletters.html" rel="" target="">
  <span class="dropdown-text">Newsletters</span></a>
-  </li>  
-        <li class="dropdown-header">Blog</li>
-        <li>
-    <a class="dropdown-item" href="../../posts.html" rel="" target="">
- <span class="dropdown-text">Blog</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../garden.html" rel="" target="">
@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Untitled</h1>
+      <h1 class="title">Simulated SUS Datasets</h1>
                       </div>
   </div>
     
@@ -172,111 +172,156 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'tidyverse' was built under R version 4.2.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.2.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'tidyr' was built under R version 4.2.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'readr' was built under R version 4.2.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'purrr' was built under R version 4.2.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'dplyr' was built under R version 4.2.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'stringr' was built under R version 4.2.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'forcats' was built under R version 4.2.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'lubridate' was built under R version 4.2.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.0     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.1     ✔ tibble    3.1.8
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.1     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-</div>
-<p>70.05<br>
-69.325</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize a global seed</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">9</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>generate_numbers <span class="ot">&lt;-</span> <span class="cf">function</span>(n, ratio, seed) {</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate n numbers from a beta distribution with alpha &gt; beta</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(seed)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  alpha <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> ratio  <span class="co"># take the reciprocal to get beta</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  skewed <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(n, alpha, beta)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Scale numbers to be between 1 and 5</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  skewed_scaled <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> skewed</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">round</span>(skewed_scaled))</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>q_01 <span class="ot">&lt;-</span> <span class="fu">generate_numbers</span>(<span class="dv">100</span>, <span class="dv">6</span><span class="sc">/</span><span class="dv">2</span>, <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>))</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>q_02 <span class="ot">&lt;-</span> <span class="fu">generate_numbers</span>(<span class="dv">100</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="fu">sample</span>(<span class="dv">11</span><span class="sc">:</span><span class="dv">20</span>))</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>q_03 <span class="ot">&lt;-</span> <span class="fu">generate_numbers</span>(<span class="dv">100</span>, <span class="dv">4</span><span class="sc">/</span><span class="dv">2</span>, <span class="fu">sample</span>(<span class="dv">21</span><span class="sc">:</span><span class="dv">30</span>))</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>q_04 <span class="ot">&lt;-</span> <span class="fu">generate_numbers</span>(<span class="dv">100</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="fu">sample</span>(<span class="dv">31</span><span class="sc">:</span><span class="dv">40</span>))</span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>q_05 <span class="ot">&lt;-</span> <span class="fu">generate_numbers</span>(<span class="dv">100</span>, <span class="dv">4</span><span class="sc">/</span><span class="dv">2</span>, <span class="fu">sample</span>(<span class="dv">41</span><span class="sc">:</span><span class="dv">50</span>))</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>q_06 <span class="ot">&lt;-</span> <span class="fu">generate_numbers</span>(<span class="dv">100</span>, <span class="dv">6</span><span class="sc">/</span><span class="dv">4</span>, <span class="fu">sample</span>(<span class="dv">51</span><span class="sc">:</span><span class="dv">60</span>))</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>q_07 <span class="ot">&lt;-</span> <span class="fu">generate_numbers</span>(<span class="dv">100</span>, <span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>, <span class="fu">sample</span>(<span class="dv">61</span><span class="sc">:</span><span class="dv">70</span>))</span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>q_08 <span class="ot">&lt;-</span> <span class="fu">generate_numbers</span>(<span class="dv">100</span>, <span class="dv">2</span><span class="sc">/</span><span class="dv">4</span>, <span class="fu">sample</span>(<span class="dv">71</span><span class="sc">:</span><span class="dv">80</span>))</span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>q_09 <span class="ot">&lt;-</span> <span class="fu">generate_numbers</span>(<span class="dv">100</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="fu">sample</span>(<span class="dv">81</span><span class="sc">:</span><span class="dv">90</span>))</span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>q_10 <span class="ot">&lt;-</span> <span class="fu">generate_numbers</span>(<span class="dv">100</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="fu">sample</span>(<span class="dv">91</span><span class="sc">:</span><span class="dv">100</span>))</span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(q_01, q_02, q_03, q_04, q_05, q_06, q_07, q_08, q_09, q_10)</span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">gather</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span> <span class="fu">geom_density</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>( <span class="sc">~</span>key)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_odd =</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(df, <span class="fu">ends_with</span>(<span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"3"</span>, <span class="st">"5"</span>, <span class="st">"7"</span>, <span class="st">"9"</span>))), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_even =</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(df, <span class="fu">ends_with</span>(<span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"2"</span>, <span class="st">"4"</span>, <span class="st">"6"</span>, <span class="st">"8"</span>))), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_odd =</span> total_odd <span class="sc">-</span> <span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_even =</span> <span class="dv">25</span> <span class="sc">-</span> total_even) <span class="sc">|&gt;</span> </span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> total_odd <span class="sc">+</span> total_even) <span class="sc">|&gt;</span> </span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> total <span class="sc">*</span> <span class="fl">2.5</span>) <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(total))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  mean
-1 63.7</code></pre>
-</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>skewed_df <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">shape1 =</span> <span class="fl">2.3</span>, <span class="at">shape2 =</span> <span class="fl">6.8</span>, <span class="at">seed =</span> <span class="dv">1234</span>) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  skewed <span class="ot">&lt;-</span> <span class="cf">function</span>(n, <span class="at">skew =</span> <span class="st">'right'</span>, shape1, shape2, seed) {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(seed)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(skew <span class="sc">==</span> <span class="st">'right'</span>) {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      skewed <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(n, shape1, shape2)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (skew <span class="sc">==</span> <span class="st">'left'</span>) {</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      skewed <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(n, shape2, shape1)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    skewed_scaled <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> skewed</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">round</span>(skewed_scaled))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(seed)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  seeds <span class="ot">&lt;-</span> seed<span class="sc">:</span>(seed <span class="sc">+</span> <span class="dv">9</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="fu">length</span>(seeds), <span class="at">nrow =</span> n))</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(seeds)) {</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    skew_direction <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(i <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>, <span class="st">'right'</span>, <span class="st">'left'</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(i <span class="sc">==</span> <span class="dv">4</span> <span class="sc">||</span> i <span class="sc">==</span> <span class="dv">10</span>) {</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>      shape1_adj <span class="ot">&lt;-</span> shape1 <span class="sc">*</span> <span class="dv">2</span>  <span class="co"># Increase shape1 to make values larger</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>      shape2_adj <span class="ot">&lt;-</span> shape2 <span class="sc">*</span> <span class="dv">2</span>  <span class="co"># Increase shape2 to make values larger</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>      shape1_adj <span class="ot">&lt;-</span> shape1</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>      shape2_adj <span class="ot">&lt;-</span> shape2</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    df[,i] <span class="ot">&lt;-</span> <span class="fu">skewed</span>(n, skew_direction, shape1_adj, shape2_adj, seeds[i])</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(df)[i] <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">'q'</span>, i, <span class="at">sep =</span> <span class="st">'_'</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(df)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>calc_sus <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">|&gt;</span> </span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">total_odd =</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(data, <span class="fu">ends_with</span>(<span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"3"</span>, <span class="st">"5"</span>, <span class="st">"7"</span>, <span class="st">"9"</span>))), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_even =</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(data, <span class="fu">ends_with</span>(<span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"2"</span>, <span class="st">"4"</span>, <span class="st">"6"</span>, <span class="st">"8"</span>))), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_odd =</span> total_odd <span class="sc">-</span> <span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_even =</span> <span class="dv">25</span> <span class="sc">-</span> total_even) <span class="sc">|&gt;</span> </span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> total_odd <span class="sc">+</span> total_even) <span class="sc">|&gt;</span> </span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sus =</span> total <span class="sc">*</span> <span class="fl">2.5</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span>total_odd, <span class="sc">-</span>total_even, <span class="sc">-</span>total)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="fu">skewed_df</span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1234</span>) <span class="sc">|&gt;</span> <span class="fu">calc_sus</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.092461</code></pre>
+<pre><code>    q_1 q_2 q_3 q_4 q_5 q_6 q_7 q_8 q_9 q_10  sus
+1     4   3   3   2   5   2   2   2   4    2 67.5
+2     5   1   3   1   3   2   2   2   3    2 70.0
+3     4   2   5   2   4   4   4   3   3    2 67.5
+4     4   2   1   3   2   5   3   4   5    3 45.0
+5     3   1   4   1   4   2   3   2   5    2 77.5
+6     3   2   5   2   5   2   4   2   3    2 75.0
+7     2   2   2   2   5   2   5   3   3    2 65.0
+8     3   1   4   3   3   2   4   2   4    2 70.0
+9     2   2   5   2   4   3   4   2   5    1 75.0
+10    2   1   5   2   5   3   5   1   5    2 82.5
+11    4   4   5   4   3   2   3   3   2    2 55.0
+12    5   3   3   2   4   1   2   2   2    1 67.5
+13    4   4   5   3   4   2   5   2   4    3 70.0
+14    3   2   4   3   4   2   5   1   5    3 75.0
+15    2   2   3   2   4   3   4   3   3    2 60.0
+16    5   3   3   2   5   4   3   2   4    2 67.5
+17    4   3   3   2   4   2   5   2   3    3 67.5
+18    3   2   4   1   4   3   4   2   4    2 72.5
+19    3   2   3   3   3   3   5   2   4    2 65.0
+20    4   3   5   2   5   1   4   3   1    3 67.5
+21    3   2   3   2   3   3   5   2   5    2 70.0
+22    2   3   4   2   3   1   4   2   4    2 67.5
+23    4   3   4   3   4   2   4   2   4    1 72.5
+24    2   2   4   2   4   4   5   4   3    2 60.0
+25    4   2   4   2   4   1   4   4   4    2 72.5
+26    5   4   4   1   3   4   4   2   4    2 67.5
+27    3   1   3   4   4   1   3   1   5    2 72.5
+28    3   3   5   3   2   1   3   1   3    2 65.0
+29    3   1   5   3   5   3   3   1   5    4 72.5
+30    3   1   5   3   5   3   3   2   3    4 65.0
+31    3   2   3   3   3   4   2   1   4    2 57.5
+32    5   2   4   3   4   1   2   1   3    2 72.5
+33    2   1   4   4   3   3   5   1   5    1 72.5
+34    3   2   3   1   4   3   4   2   5    1 75.0
+35    2   4   4   3   5   2   5   2   3    2 65.0
+36    2   2   4   2   4   4   2   2   5    1 65.0
+37    3   2   5   2   4   1   5   3   3    3 72.5
+38    3   3   5   3   3   4   2   2   4    2 57.5
+39    3   2   4   4   4   3   4   3   2    4 52.5
+40    2   4   3   2   5   2   4   4   3    2 57.5
+41    2   2   5   3   3   4   4   1   3    3 60.0
+42    3   2   4   3   5   1   5   1   4    3 77.5
+43    4   1   4   2   2   2   4   3   4    2 70.0
+44    5   2   3   3   3   1   3   2   3    3 65.0
+45    5   2   5   3   3   2   4   1   4    2 77.5
+46    4   2   3   2   4   3   2   4   2    3 52.5
+47    4   1   4   2   2   2   4   3   5    2 72.5
+48    3   1   3   4   5   2   4   3   4    2 67.5
+49    4   2   3   2   4   2   2   3   3    2 62.5
+50    5   3   5   3   2   1   4   3   5    4 67.5
+51    2   3   4   4   4   2   3   3   4    3 55.0
+52    5   1   4   1   4   3   5   2   4    3 80.0
+53    5   2   4   3   4   3   3   1   3    2 70.0
+54    4   2   3   2   4   2   4   3   3    3 65.0
+55    4   4   5   3   4   2   4   2   4    2 70.0
+56    3   2   4   3   3   2   4   4   4    3 60.0
+57    3   2   4   2   4   5   4   2   3    2 62.5
+58    4   2   4   1   4   4   3   1   3    3 67.5
+59    5   3   4   3   4   2   3   2   4    4 65.0
+60    3   3   5   1   5   1   3   2   4    3 75.0
+61    3   2   4   2   3   2   3   2   4    3 65.0
+62    3   2   3   3   2   3   4   3   5    3 57.5
+63    3   2   4   1   4   1   4   2   5    1 82.5
+64    3   1   3   2   3   3   4   2   5    2 70.0
+65    5   3   4   3   4   2   3   1   4    2 72.5
+66    4   2   4   1   4   1   2   2   4    1 77.5
+67    4   3   3   2   3   3   3   3   5    3 60.0
+68    3   3   4   2   5   1   5   2   2    2 72.5
+69    3   4   4   3   5   1   4   3   3    4 60.0
+70    2   2   5   1   5   2   5   4   4    3 72.5
+71    4   1   4   2   2   2   5   3   3    3 67.5
+72    4   2   5   3   4   4   3   2   4    2 67.5
+73    5   2   4   3   4   1   4   2   5    2 80.0
+74    5   1   3   3   2   3   5   4   5    3 65.0
+75    3   2   4   3   3   2   1   1   4    3 60.0
+76    5   1   3   3   3   3   3   2   4    3 65.0
+77    5   1   3   2   5   3   5   3   3    1 77.5
+78    5   2   4   2   3   3   2   3   3    2 62.5
+79    4   2   4   1   5   3   5   5   4    3 70.0
+80    3   2   5   4   2   2   5   1   5    3 70.0
+81    4   2   4   2   2   2   4   1   4    3 70.0
+82    3   1   4   2   1   3   4   1   4    1 70.0
+83    4   1   3   3   2   3   2   4   4    3 52.5
+84    4   1   2   3   3   2   5   3   3    2 65.0
+85    4   1   3   4   1   2   4   3   5    3 60.0
+86    4   2   4   3   4   2   4   4   2    2 62.5
+87    3   2   2   2   3   2   5   4   5    2 65.0
+88    3   1   2   2   4   1   4   2   4    2 72.5
+89    2   2   5   2   5   4   3   1   4    3 67.5
+90    5   2   3   3   4   1   2   2   5    2 72.5
+91    4   2   4   3   3   1   4   2   3    3 67.5
+92    5   3   4   2   4   3   3   3   4    2 67.5
+93    4   3   4   3   4   2   3   2   3    2 65.0
+94    4   2   4   2   4   2   3   1   4    2 75.0
+95    4   3   4   2   2   1   5   3   4    3 67.5
+96    3   3   3   3   5   3   5   3   4    2 65.0
+97    2   2   3   2   4   3   3   3   5    3 60.0
+98    5   1   4   4   3   3   4   2   2    3 62.5
+99    4   4   3   3   3   4   5   3   4    2 57.5
+100   5   1   4   2   5   3   4   3   3    2 75.0</code></pre>
 </div>
 </div>
-<p>Step 1: Convert the scale into number for each of the 10 questions</p>
-<p>Strongly Disagree: 1 point Disagree: 2 points Neutral: 3 points Agree: 4 points Strongly Agree: 5 points Step 2: Calculate</p>
-<p>X = Sum of the points for all odd-numbered questions – 5 Y = 25 – Sum of the points for all even-numbered questions SUS Score = (X + Y) x 2.5 The rationale behind the calculation is very intuitive. The total score is 100 and each of the questions has a weight of 10 points.</p>
-<p>As odd-numbered questions are all in a positive tone, if the response is strongly agree, you will want to give them the maximum point which is 10 for each question. If the response is strongly disagree, you will want to give them the minimum point which is 0. By subtracting 1 from each of the odd-numbered questions, you ensure that minimum is 0. After which, by multiplying by 2.5, you ensure that the maximum is 10 for each of the questions.</p>
-<p>Vice versa, for the even-numbered questions in a negative tone, if the response is strongly agree, you will want to give them the minimum point which is 0 for each question. If the response is strongly disagree, you will want to give them the minimum point which is 0. As such, by subtracting the points of each question from 5, you ensure that minimum is 0. After which, by multiplying by 2.5, you ensure that the maximum is 10 for each of the questions.</p>
-<p>Interpreting System Usability Scale (SUS) Score SUS score will be able to tell you your usability performance in the aspects of effectiveness, efficiency, and overall ease of use. Although each responses yield a score on a scale of 0 – 100, do not mistake it as a percentage or percentile.</p>
-<p>The average SUS score is 68. This simply means that a score of 68 will just put you at 50th percentile. Below is the general guideline on the interpretation of SUS score:</p>
-<p>SUS Score Grade Adjective Rating &gt; 80.3 A Excellent 68 – 80.3 B Good 68 C Okay 51 – 68 D Poor &lt; 51 F Awful</p>
 
 
 
