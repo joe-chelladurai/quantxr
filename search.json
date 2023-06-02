@@ -37,14 +37,14 @@
   {
     "objectID": "book/index.html",
     "href": "book/index.html",
-    "title": "Play with Data Book",
+    "title": "Quantitative Experience Research with R",
     "section": "",
     "text": "This is a place for the book."
   },
   {
     "objectID": "book/index.html#preface",
     "href": "book/index.html#preface",
-    "title": "Play with Data Book",
+    "title": "Quantitative Experience Research with R",
     "section": "Preface",
     "text": "Preface\nThis is a preface."
   },
@@ -102,7 +102,7 @@
     "href": "index.html",
     "title": "Welcome",
     "section": "",
-    "text": "Welcome\nThis is a place where you can find links to the following:\n\nPlay with Data Book\nBlog\nNewsletters\nAnd a Digital Garden"
+    "text": "Welcome\nThis is a place where I would like to share resources for Quantitative Experience Research."
   },
   {
     "objectID": "newsletters/01/index.html",
