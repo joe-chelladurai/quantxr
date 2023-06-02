@@ -1,1 +1,9 @@
 /* css styles */
+
+
+.navbar .dropdown-header {
+    text-transform: uppercase;
+    font-size: 0.5rem;
+    padding: 0 .5rem;
+    position: fixed;
+}
