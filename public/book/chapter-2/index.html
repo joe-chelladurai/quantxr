@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.3.361">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quantitative Experience Research - New Section</title>
+<title>Quantitative Experience Research – index</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -54,7 +54,8 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -77,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="dropdown-header">Book</li>
         <li>
     <a class="dropdown-item" href="../../book/index.html" rel="" target="">
- <span class="dropdown-text">Quantitative Experience Research with R</span></a>
+ <span class="dropdown-text">Quant XR</span></a>
   </li>  
         <li class="dropdown-header">Newsletter</li>
         <li>
@@ -112,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../book/chapter-2/index.html">New Section</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../book/chapter-2/index.html">Research Automation</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -127,13 +128,13 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../book/chapter-1/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Get, Set, Go</span></a>
+ <span class="menu-text">Overview</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../book/chapter-2/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">New Section</span></a>
+ <span class="menu-text">Research Automation</span></a>
   </div>
 </li>
     </ul>
@@ -146,40 +147,107 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#a-new-plot" id="toc-a-new-plot" class="nav-link active" data-scroll-target="#a-new-plot">A New Plot</a></li>
-  <li><a href="#another-plot" id="toc-another-plot" class="nav-link" data-scroll-target="#another-plot">Another Plot</a></li>
+  <li><a href="#research-automation" id="toc-research-automation" class="nav-link active" data-scroll-target="#research-automation">Research Automation</a>
+  <ul class="collapse">
+  <li><a href="#creating-a-survey-in-google-forms" id="toc-creating-a-survey-in-google-forms" class="nav-link" data-scroll-target="#creating-a-survey-in-google-forms">Creating a survey in Google Forms</a></li>
+  <li><a href="#accessing-data-using-google-service-account" id="toc-accessing-data-using-google-service-account" class="nav-link" data-scroll-target="#accessing-data-using-google-service-account">Accessing data using Google Service Account</a></li>
+  <li><a href="#using-github-actions-for-scheduled-automation" id="toc-using-github-actions-for-scheduled-automation" class="nav-link" data-scroll-target="#using-github-actions-for-scheduled-automation">Using GitHub Actions for Scheduled Automation</a></li>
+  <li><a href="#creating-reports-with-r" id="toc-creating-reports-with-r" class="nav-link" data-scroll-target="#creating-reports-with-r">Creating Reports with R</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">New Section</h1>
+
+
+<section id="research-automation" class="level1">
+<h1>Research Automation</h1>
+<p>In this section, I will discuss how we can automate data collection, cleaning, processing, graphing, and reporting.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Required Tools">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
-
-<section id="a-new-plot" class="level2">
-<h2 class="anchored" data-anchor-id="a-new-plot">A New Plot</h2>
-<p>In this section we will discover how to create a new plot.</p>
+<div class="callout-title-container flex-fill">
+Required Tools
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Google Forms</li>
+<li>Google Sheets</li>
+<li>Google Service Account</li>
+<li>GitHub Actions</li>
+<li>R</li>
+</ul>
+</div>
+</div>
+<section id="creating-a-survey-in-google-forms" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-survey-in-google-forms">Creating a survey in Google Forms</h2>
+<ol type="1">
+<li>Go to forms.google.com and create a form.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="screenshot_google-form.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption class="figure-caption">Google Form</figcaption>
+</figure>
+</div>
+<ol start="2" type="1">
+<li>Add your questions.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="screenshot_google-form-filled.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption class="figure-caption">Google Form with Example Survey</figcaption>
+</figure>
+</div>
+<p>3.Connect to Google Sheets</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="screenshot_google-form-link-to-sheets.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption class="figure-caption">Connect to Google Sheets</figcaption>
+</figure>
+</div>
+<p>Click on “Link to Sheets” and specify a destination. For this survey, I am creating a new spreadsheet.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="screenshot_google-form-link-to-sheets-2.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption class="figure-caption">Connect</figcaption>
+</figure>
+</div>
+<ol start="4" type="1">
+<li>When you click “Create” you will be taken to the Google Sheet automatically. The responses will be populated when people take the survey.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="screenshot_google-form-link-to-sheets-3.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption class="figure-caption">Google Form Responses in a Google Sheet</figcaption>
+</figure>
+</div>
+<ol start="5" type="1">
+<li>Now you are ready to share the survey.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="screenshot_google-form-share.png" class="img-fluid figure-img" style="width:40.0%"></p>
+<figcaption class="figure-caption">Share Google Form Survey</figcaption>
+</figure>
+</div>
 </section>
-<section id="another-plot" class="level2">
-<h2 class="anchored" data-anchor-id="another-plot">Another Plot</h2>
-<p>There will be another plot discussion here.</p>
+<section id="accessing-data-using-google-service-account" class="level2">
+<h2 class="anchored" data-anchor-id="accessing-data-using-google-service-account">Accessing data using Google Service Account</h2>
+</section>
+<section id="using-github-actions-for-scheduled-automation" class="level2">
+<h2 class="anchored" data-anchor-id="using-github-actions-for-scheduled-automation">Using GitHub Actions for Scheduled Automation</h2>
+</section>
+<section id="creating-reports-with-r" class="level2">
+<h2 class="anchored" data-anchor-id="creating-reports-with-r">Creating Reports with R</h2>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

@@ -1,13 +1,53 @@
 ---
 layout: default
-title: New Section
 ---
 
-## A New Plot
+# Research Automation
 
-In this section we will discover how to create a new plot.
+In this section, I will discuss how we can automate data collection, cleaning, processing, graphing, and reporting.
+
+::: {.callout-note title="Required Tools"}
+- Google Forms
+- Google Sheets
+- Google Service Account
+- GitHub Actions
+- R
+:::
+
+## Creating a survey in Google Forms
+
+1. Go to forms.google.com and create a form.
+
+![Google Form](screenshot_google-form.png){width=80%}
 
 
-## Another Plot
+2. Add your questions.
 
-There will be another plot discussion here.
+![Google Form with Example Survey](screenshot_google-form-filled.png){width=80%}
+
+3.Connect to Google Sheets 
+
+![Connect to Google Sheets](screenshot_google-form-link-to-sheets.png){width=50%}
+
+Click on "Link to Sheets" and specify a destination. For this survey, I am creating a new spreadsheet.
+
+![Connect](screenshot_google-form-link-to-sheets-2.png){width=50%}
+
+4. When you click "Create" you will be taken to the Google Sheet automatically. The responses will be populated when people take the survey. 
+
+![Google Form Responses in a Google Sheet](screenshot_google-form-link-to-sheets-3.png){width=80%}
+
+5. Now you are ready to share the survey.
+
+![Share Google Form Survey](screenshot_google-form-share.png){width=40%}
+
+
+## Accessing data using Google Service Account
+
+
+## Using GitHub Actions for Scheduled Automation
+
+
+## Creating Reports with R
+
+

@@ -1,7 +1,10 @@
 ---
 layout: default
-title: Get, Set, Go
+slide-format: revealjs
 ---
 
+## Overview
 
-In this chapter, we will complete setup and get ready to go.
+```{=html}
+<iframe class="slide-deck" src="demo/"></iframe>
+```

@@ -1,15 +1,5 @@
 ---
-id: book
-title: "Quantitative Experience Research with R"
-sidebar_position: 1
-#listing:
-#  contents: 
-#   - "/*.qmd"
-#   - "/*/index.qmd"
+title: "Quant XR"
 ---
 
-This is a place for the book.
-
-## Preface
-
-This is a preface. 
+This is a book

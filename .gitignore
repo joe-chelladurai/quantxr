@@ -3,4 +3,6 @@ _site
 .quarto
 .Rproj.user
 
+public
+
 /.quarto/
