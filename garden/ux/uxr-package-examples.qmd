@@ -11,7 +11,6 @@ library(uxr)
 library(tidyverse)
 ```
 
-
 ## Comparing Task Success Rate with Benchmark
 
 ### Single Task
@@ -20,9 +19,7 @@ library(tidyverse)
 benchmark_event(benchmark = 0.8, count = 4, total = 7, input = "values", output = "tibble")
 ```
 
-
 ### Multiple Tasks
-
 
 ```{r}
 result <- purrr::map_dfr(c(53, 59, 51, 55, 60, 61, 52, 49), function(count) benchmark_event(benchmark = 0.75, count = count, total = 70, input = "values", output = "tibble"))
@@ -50,4 +47,3 @@ result_df |>
   geom_text(aes(label = result), color = "white", size = 5, hjust = 1.25)
 
 ```
-

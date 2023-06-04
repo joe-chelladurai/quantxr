@@ -3,18 +3,17 @@ title: "benchmark_scores"
 editor: visual
 ---
 
-
 ```{r}
 library(uxr)
 library(tidyverse)
 ```
-
 
 ```{r}
 scores <- 80 + 23 * scale(rnorm(172)) # 80 = mean, 23 = sd
 data <- data.frame(scores = scores)
 benchmark_score(data, scores, 67, output = "tibble")
 ```
+
 ```{r}
 benchmark_score(mean = 80, sd = 23, n = 172, benchmark = 67, input = "values", output = "tibble")
 ```
@@ -26,12 +25,11 @@ result <- purrr::map_dfr(c(60, 73, 57, 70, 67, 59, 75), function(mean) benchmark
 
 result
 ```
-TO DO: check lower_ci
 
+TO DO: check lower_ci
 
 ```{r}
 data <- data.frame(time = c(60, 53, 70, 42, 62, 43, 81))
 benchmark_time(data, column = time, benchmark = 60, alpha = 0.05)
 
 ```
-
