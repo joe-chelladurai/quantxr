@@ -1,0 +1,162 @@
+---
+title: "index"
+editor: visual
+---
+
+
+```{r}
+# Load required library
+library(ggplot2)
+
+# Create a dataset
+set.seed(123)
+Time <- rep(1:10, each = 3)
+Group <- rep(c("Group1", "Group2", "Group3"), times = 10)
+Satisfaction <- rnorm(30, mean = 5, sd = 2)
+Alpha <- rep(c(0.3, 0.3, 0.3), times = 10)
+
+data <- data.frame(Time, Group, Satisfaction, Alpha)
+
+# Plot the dataset
+ggplot(data, aes(x = Time, y = Satisfaction, group = Group, color = Group)) +
+  geom_line(size = 1) +
+  geom_point(aes(alpha = Alpha), size = 3) +
+  scale_alpha_continuous(range = c(0.3, 0.3)) +
+  theme_minimal() +
+  labs(title = "Change in Customer Satisfaction Over Time",
+       x = "Time",
+       y = "Customer Satisfaction",
+       color = "Group")
+
+```
+
+```{r}
+# Load required libraries
+library(ggplot2)
+library(ez)  # for Mauchly's Test
+library(car)  # for Anova function
+
+# Create a dataset
+set.seed(123)
+Group <- rep(c("Android", "Apple"), each = 150)
+Task <- rep(c("Sitting", "Standing", "Walking"), times = 100)
+Performance <- rnorm(300, mean = 5, sd = 2)
+
+data <- data.frame(Group, Task, Performance)
+
+# Conduct an ANOVA
+mod <- aov(Performance ~ Group*Task, data = data)
+summary(mod)
+
+# Conduct Mauchly's Test for Sphericity
+ezANOVA(data,
+        dv = Performance,
+        wid = Group,
+        within = Task,
+        type = 3,
+        detailed = TRUE)
+
+# Plot the data
+ggplot(data, aes(x = Task, y = Performance, fill = Group)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Task Performance by Group",
+       x = "Task",
+       y = "Performance",
+       fill = "Group") +
+  facet_grid(. ~ Group)
+
+```
+
+
+```{r}
+# Load ggplot2
+library(ggplot2)
+
+# Create data for Satisfaction
+set.seed(1)
+data_satisfaction <- data.frame(User = 1:100, Satisfaction = sample(1:5, 100, replace = TRUE))
+ggplot(data_satisfaction, aes(x = Satisfaction)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "User Satisfaction", x = "Satisfaction Rating", y = "Count") +
+  theme_minimal()
+
+# Create data for Task Completion
+data_task_completion <- data.frame(User = 1:100, Task_Completion = sample(c("Yes", "No"), 100, replace = TRUE))
+ggplot(data_task_completion, aes(x = Task_Completion)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Task Completion", x = "Task Completed", y = "Count") +
+  theme_minimal()
+
+# Create data for Time-On-Task
+data_time_on_task <- data.frame(User = 1:100, Time_On_Task = rnorm(100, 5, 2))
+ggplot(data_time_on_task, aes(x = Time_On_Task)) +
+  geom_histogram(binwidth = 0.5, fill = "steelblue") +
+  labs(title = "Time-On-Task", x = "Time (minutes)", y = "Count") +
+  theme_minimal()
+
+# Create data for Error Rate
+data_error_rate <- data.frame(User = 1:100, Error_Rate = sample(0:5, 100, replace = TRUE))
+ggplot(data_error_rate, aes(x = Error_Rate)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Error Rate", x = "Number of Errors", y = "Count") +
+  theme_minimal()
+
+# Create data for Learnability
+data_learnability <- data.frame(User = 1:100, Learnability = rnorm(100, 5, 2))
+ggplot(data_learnability, aes(x = Learnability)) +
+  geom_histogram(binwidth = 0.5, fill = "steelblue") +
+  labs(title = "Learnability", x = "Learnability Score", y = "Count") +
+  theme_minimal()
+
+```
+
+```{r}
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Create point estimates and confidence intervals for Task Completion
+task_completion_summary <- data_task_completion %>%
+  summarise(Completion_Rate = sum(Task_Completion == "Yes") / n(),
+            Lower = Completion_Rate - 1.96*sqrt((Completion_Rate*(1-Completion_Rate))/n()),
+            Upper = Completion_Rate + 1.96*sqrt((Completion_Rate*(1-Completion_Rate))/n()))
+
+# Create point estimates and confidence intervals for Error Rate
+error_rate_summary <- data_error_rate %>%
+  summarise(Mean = mean(Error_Rate),
+            Lower = Mean - 1.96*sd(Error_Rate)/sqrt(n()),
+            Upper = Mean + 1.96*sd(Error_Rate)/sqrt(n()))
+
+# Create point estimates and confidence intervals for Learnability
+learnability_summary <- data_learnability %>%
+  summarise(Mean = mean(Learnability),
+            Lower = Mean - 1.96*sd(Learnability)/sqrt(n()),
+            Upper = Mean + 1.96*sd(Learnability)/sqrt(n()))
+
+# Print the summaries
+print(task_completion_summary)
+print(error_rate_summary)
+print(learnability_summary)
+
+# Add summaries to the plots
+ggplot(data_task_completion, aes(x = Task_Completion)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Task Completion", x = "Task Completed", y = "Count") +
+  annotate("text", x = "Yes", y = 20, label = paste("Completion Rate:", round(task_completion_summary$Completion_Rate, 2))) +
+  theme_minimal()
+
+ggplot(data_error_rate, aes(x = Error_Rate)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Error Rate", x = "Number of Errors", y = "Count") +
+  annotate("text", x = 4, y = 20, label = paste("Mean:", round(error_rate_summary$Mean, 2))) +
+  theme_minimal()
+
+ggplot(data_learnability, aes(x = Learnability)) +
+  geom_histogram(binwidth = 0.5, fill = "steelblue") +
+  labs(title = "Learnability", x = "Learnability Score", y = "Count") +
+  annotate("text", x = 7, y = 20, label = paste("Mean:", round(learnability_summary$Mean, 2))) +
+  theme_minimal()
+
+```
+

@@ -1,0 +1,43 @@
+
+```{r}
+#| warning: false
+#| message: false
+library(tidyverse)
+```
+
+## Task Success Heatmap
+
+Example adapted from Measuring the User Experience - Albert & Tullis (p. 75)
+```{r}
+data <- tibble(participant = c(1:10),
+               login = c(1, 1, 1, 1, 0, 1, 0, 0, 1, 1),
+               navigate = c(1, 0, 1, 0, 0, 1, 1, 0, 0, 1),
+               search = c(1, 1, 0, 0, 1, 1, 1, 0, 0, 0),
+               find_category = c(0, 0, 0, 0, 0, 1, 0, 0, 0, 1),
+               find_author = c(1, 1, 0, 1, 0, 1, 0, 1, 0, 1),
+               find_review = c(1, 0, 0, 0, 1, 0, 1, 0, 1, 1),
+               add_to_cart = c(1, 1, 1, 1, 0, 1, 1, 0, 1, 1),
+               update_address = c(1, 0, 0, 1, 0, 1, 1, 0, 1, 1),
+               check_out = c(0, 0, 0, 0, 0, 1, 0, 0, 0, 0),
+               check_status = c(1, 1, 0, 0, 0, 1, 1, 1, 1, 1))
+```
+
+```{r}
+data_long <- data |> pivot_longer(-participant, names_to = "action", values_to = "value") 
+
+data_long <- data_long |> mutate(action = fct_inorder(action)) |> 
+  mutate(action = fct_rev(action))
+```
+
+```{r}
+# Create heatmap
+ggplot(data_long, aes(x = factor(participant), y = action, fill = as.factor(value))) +
+  geom_tile(color = "white") +
+  scale_fill_manual(values = c("orange", "steelblue")) +
+  theme_minimal() +
+  labs(x = "Participant", y = "Action", fill = "Value",
+       title = "Participant Action Heatmap") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+

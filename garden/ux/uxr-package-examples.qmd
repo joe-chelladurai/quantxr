@@ -1,0 +1,53 @@
+---
+title: "uxr-package"
+editor: visual
+---
+
+```{r}
+#| warning: false
+#| message: false
+
+library(uxr)
+library(tidyverse)
+```
+
+
+## Comparing Task Success Rate with Benchmark
+
+### Single Task
+
+```{r}
+benchmark_event(benchmark = 0.8, count = 4, total = 7, input = "values", output = "tibble")
+```
+
+
+### Multiple Tasks
+
+
+```{r}
+result <- purrr::map_dfr(c(53, 59, 51, 55, 60, 61, 52, 49), function(count) benchmark_event(benchmark = 0.75, count = count, total = 70, input = "values", output = "tibble"))
+
+result_df <- result |> select(count, total, benchmark, result) |> 
+  mutate(result = round(result, 2)) |> mutate(result = result*100) |> 
+  mutate(result_percent = scales::percent(result))
+
+result_df <- result_df |> tibble::rowid_to_column("task") |> 
+  mutate(task = fct_inorder(factor(task))) 
+
+result_df |> 
+  ggplot(aes(x = result, y = factor(task))) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  scale_x_continuous(limits = c(0, 100), 
+                     breaks = seq(0, 100, by = 10), 
+                     position = "top",
+                     expand = expansion(mult = c(0, .1))) +
+  scale_y_discrete(limits = rev(levels(result_df$task))) +
+  theme(axis.ticks.y = element_blank()) +
+  theme(axis.ticks.x = element_line(color = "grey")) +
+  labs(title = "Probability (%) that the task success rate will exceed the benchmark",
+       x = NULL,
+       y = NULL) +
+  geom_text(aes(label = result), color = "white", size = 5, hjust = 1.25)
+
+```
+

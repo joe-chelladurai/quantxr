@@ -1,0 +1,60 @@
+---
+title: "anova"
+editor: visual
+---
+
+```{r}
+# Import necessary libraries
+library(ggplot2)
+library(ez)  
+library(car)
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Define the groups and tasks
+Group <- rep(c("Android", "Apple"), each = 150)
+Task <- rep(c("Sitting", "Standing", "Walking"), times = 100)
+
+# Define performance based on group and task
+Performance <- rnorm(300)
+Performance[Group == "Android" & Task == "Sitting"] <- rnorm(sum(Group == "Android" & Task == "Sitting"), mean = 7, sd = 2)
+Performance[Group == "Android" & Task == "Standing"] <- rnorm(sum(Group == "Android" & Task == "Standing"), mean = 6, sd = 2)
+Performance[Group == "Android" & Task == "Walking"] <- rnorm(sum(Group == "Android" & Task == "Walking"), mean = 5, sd = 2)
+Performance[Group == "Apple" & Task == "Sitting"] <- rnorm(sum(Group == "Apple" & Task == "Sitting"), mean = 5, sd = 2)
+Performance[Group == "Apple" & Task == "Standing"] <- rnorm(sum(Group == "Apple" & Task == "Standing"), mean = 5, sd = 2)
+Performance[Group == "Apple" & Task == "Walking"] <- rnorm(sum(Group == "Apple" & Task == "Walking"), mean = 7, sd = 2)
+
+# Create a dataframe
+data <- data.frame(Group, Task, Performance)
+
+# Perform ANOVA
+mod <- aov(Performance ~ Group*Task, data = data)
+summary(mod)
+
+# Perform Mauchly's Test for Sphericity
+ezANOVA(data,
+        dv = Performance,
+        wid = Group,
+        within = Task,
+        type = 3,
+        detailed = TRUE)
+
+# Plot the data with facets for each task
+
+
+```
+
+```{r}
+ggplot(data, aes(x = Group, y = Performance, color = Group)) +
+  geom_point(pch = 21, position = position_jitterdodge(dodge.width = 0.75)) +
+  geom_boxplot(alpha = 0.1, width = 0.2) +
+  stat_summary(fun = median, geom = "label", alpha = .5, color = 'white', fill = 'black', aes(label = round(after_stat(y), 1)), vjust = 0.5) +
+  labs(title = "Androids do better during sitting and standing. Apple does better while walking.",
+       subtitle = "Performance Ratings (higher scores are better)",
+       x = NULL,
+       y = NULL,
+       color = "Group") +
+  facet_grid(. ~ Task) +
+  theme(legend.position = "none")
+```

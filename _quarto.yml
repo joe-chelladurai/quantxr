@@ -12,7 +12,7 @@ website:
       - text: "Quantitative Experience Research"
         menu:
           - text: Book
-          - file: book/index.qmd
+          - file: book/chapter-1/index.qmd
           - text: Newsletter
           - newsletters.qmd
           - text: Garden

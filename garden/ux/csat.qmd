@@ -1,0 +1,43 @@
+---
+title: "csat"
+editor: visual
+---
+
+
+```{r}
+library(ggplot2)
+
+# Set the seed to make the example reproducible
+set.seed(123)
+
+# Define the number of points to generate for each group and time point
+num_points <- 10
+
+# Create a dataset
+Time <- rep(1:10, each = 3 * num_points)
+Group <- rep(rep(c("Group1", "Group2", "Group3"), each = num_points), times = 10)
+Satisfaction <- rnorm(3 * 10 * num_points, mean = 8, sd = 3)
+Alpha <- rep(c(1, 1, 1), each = num_points, times = 10)
+
+data <- data.frame(Time, Group, Satisfaction, Alpha)
+
+# Calculate group means
+group_means <- aggregate(Satisfaction ~ Time + Group, data, mean)
+
+# Plot the dataset
+
+ggplot(data, aes(x = factor(Time), y = Satisfaction, group = Group)) +
+  geom_point(aes(color = Group, alpha = 0.1), size = 3, position = position_jitterdodge(dodge.width = 0.75)) +
+  geom_line(data = group_means, aes(color = Group), size = 1) +
+  scale_alpha_continuous(range = c(0.3, 0.3)) +
+  scale_y_continuous(limits = c(0, 10)) +
+  theme_minimal() +
+  labs(title = "Change in Customer Satisfaction Over Time",
+       x = "Time",
+       y = "Customer Satisfaction",
+       color = "Group")
+
+```
+
+
+

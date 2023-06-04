@@ -1,5 +1,0 @@
----
-title: "Quant XR"
----
-
-This is a book
