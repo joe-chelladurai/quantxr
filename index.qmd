@@ -9,3 +9,12 @@ format:
 This is a place where you can find links to the following:
 
 Quantitative Experience Research
+
+Automate All the Things with R
+
+
+1. Set up Google Forms
+2. Set up Google Sheets
+3. Set up Google Cloud Console - Service Account Token
+4. Set up GitHub Actions
+5. Set up R scripts

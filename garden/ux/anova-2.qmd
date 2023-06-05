@@ -1,0 +1,375 @@
+---
+title: "Mixed Factorial Analysis of Variance (ANOVA)"
+editor: visual
+---
+
+```{r}
+#| echo: false
+suppressPackageStartupMessages(library(broom))
+suppressPackageStartupMessages(library(rstatix))
+suppressPackageStartupMessages(library(scales))
+suppressPackageStartupMessages(library(janitor))
+suppressPackageStartupMessages(library(reactable))
+suppressPackageStartupMessages(library(gt))
+suppressPackageStartupMessages(library(gtExtras))
+suppressPackageStartupMessages(library(emmeans))
+suppressPackageStartupMessages(library(tidyverse))
+
+
+summ <- function(.data, var) {
+  .data %>% 
+    summarise(Min = min({{var}}),
+              Median = median({{var}}),
+              Mean = mean({{var}}),
+              SD = sd({{var}}),
+              Max = max({{var}})
+    ) %>% 
+    mutate(across(where(is.numeric), round, 1))
+}
+
+options(scipen = 10)
+
+gt_tab <- function(.tbl) {
+  .tbl %>% 
+    tab_options(data_row.padding = px(0), 
+                column_labels.padding = px(0), 
+                heading.padding = px(0))  
+}
+```
+
+```{r}
+#| echo: false
+
+# read in data file of smartphone text entry by 24 people
+data = read.csv("data.csv")
+
+data <- data %>% 
+  mutate(participant = factor(participant),
+         group = factor(group),
+         task = factor(task),
+         order = factor(order))
+
+```
+
+## Project Background
+
+24 participants were assigned to two different groups of 12 participants each and were assigned three tasks. Their performance on each task was measured. To check for any order effects, a balanced design was used.
+
+![](design.png){width="178"}
+
+## Research Question
+
+Do groups differ on task performance based on type of task?
+
+## Descriptive Statistics and Frequencies
+
+```{r}
+data %>% 
+  group_by(task) %>% 
+  summarise(mean = mean(performance),
+            sd = sd(performance),
+            median = median(performance),
+            min = min(performance),
+            max = max(performance)) %>% 
+  mutate(across(where(is.numeric), round, 2)) %>% 
+  gt() %>% 
+  gt_tab() %>% 
+  tab_options(table.width = px(800)) %>% 
+   cols_width(
+    everything() ~ px(60)
+  )
+```
+
+## Distribution Plots
+
+```{r}
+data %>% 
+  ggplot(aes(x=performance)) +
+  geom_histogram(bins = 30) +
+  facet_grid(task ~ group) +
+  theme_bw()
+```
+
+```{r}
+plot <- data %>%
+  ggplot(aes(x = performance, y = group, fill = group)) +
+  geom_boxplot() +
+  facet_grid(rows = vars(task), switch = "both") +
+  theme(aspect.ratio = 1 / 5) +
+  scale_fill_manual(values = c("#DBBF8B", "#3D618F")) +
+  theme(legend.position = "none") +
+  stat_summary(geom = "crossbar", width = 1, fatten = 2, fill = "white", colour = "white", fun.data = function(x) {
+    return(c(y = median(x), ymin = median(x), ymax = median(x)))
+  }) +
+  theme(
+    axis.title.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  ) +
+  theme(strip.text.y.left = element_text(angle = 0)) +
+  theme(panel.background = element_blank())
+
+plot
+```
+
+## Order Effects
+
+```{r}
+library(ez)
+m = ezANOVA(dv=performance, between=group, within=order, wid=participant, type=3, data=data)
+
+```
+
+```{r}
+m$Mauchly %>% 
+  data.frame() %>% 
+  clean_names() %>% 
+  rename(p.value = p) %>% 
+  mutate(p.value = scales::pvalue(p.value)) %>% 
+  mutate(across(where(is.numeric), round, 2)) %>% 
+  select(-4) %>% 
+  gt() %>% 
+  gt_tab() %>% 
+  tab_options(table.width = px(400)) %>% 
+  cols_width(
+    everything() ~ px(60),
+    effect ~ px(100),
+  )
+```
+
+The Mauchly test of sperificity is not significant and we can continue with the ANOVA test.
+
+```{r}
+m$ANOVA %>% 
+  mutate(p = scales::pvalue(p)) %>% 
+  mutate(across(where(is.numeric), round,3)) %>% 
+  select(-`p<.05`) %>% 
+  clean_names() %>% 
+  rename(dfn = d_fn, dfd = d_fd) %>% 
+  gt() %>% 
+  gt_tab() %>% 
+  tab_options(table.width = px(600)) %>% 
+  cols_width(
+    everything() ~ px(60),
+    effect ~ px(100),
+  )
+```
+
+Although the main effect is significant, the order effect and it's interaction with the group is not significant.
+
+```{r}
+#| warning: false 
+interaction_data <- data %>%  
+  group_by(task, group) %>% 
+  summarise(performance = mean(performance, na.rm = TRUE))
+
+
+labels <- interaction_data %>% filter(task == "C") %>% mutate(label = group)
+
+
+interaction_plot <- ggplot(interaction_data, aes(x = task, y = performance)) +
+  geom_line(size = 1.2, aes(group = group, color = group)) +
+  geom_point(size = 7, aes(color = group)) +
+  ylim(0, 24) +
+  # coord_flip() +
+  # geom_text(size = 4, aes(label = label, color = group), data = labels, nudge_x #= 0.04, hjust = 0) + 
+  scale_colour_manual(values=c("#DBBF8B", "#3D618F")) +
+  theme(plot.margin = unit(rep(1.2, 4), "cm"),    
+        plot.title = element_text(size = 20, color = "#22292F", face = "bold", margin = margin(b = 5)),    
+        plot.subtitle = element_text(size = 15, margin = margin(b = 35)),    
+        plot.caption = element_text(size = 10,  margin = margin(t = 25), color = "#606F7B"),    
+        panel.background = element_blank(),    
+        axis.text = element_text(size = 12, color = "#22292F"),    
+        axis.text.x = element_text(margin = margin(t = 5)),    
+        axis.text.y = element_text(margin = margin(r = 5)),    
+        axis.line = element_line(color = "#3D4852"),    
+        axis.title = element_text(size = 14),    
+        axis.title.y = element_text(margin = margin(r = 15), hjust = 0.5),    
+        axis.title.x = element_text(margin = margin(t = 15), hjust = 0.5),    
+        legend.poAion = "none",
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_line( size=.1, color="black" )) +
+  theme_minimal() +
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    #   panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank()
+  )
+
+interaction_plot
+```
+
+## Effect of Task and Group on Performance
+
+Next, we conduct Mauchly's test and ANOVA to examine the effect of group and task on performance.
+
+```{r}
+m = ezANOVA(dv=performance, between=group, within=task, wid=participant, type=3, data=data)
+```
+
+### Mauchly's test of sperificity
+
+```{r}
+m$Mauchly %>% 
+  data.frame() %>% 
+  mutate(across(where(is.numeric), round, 2)) %>% 
+  clean_names() %>% 
+  select(-4) %>% 
+  gt() %>% 
+  gt_tab() %>% 
+  tab_options(table.width = px(400)) %>% 
+  cols_width(
+    everything() ~ px(60),
+    effect ~ px(100),
+  )
+```
+
+The Mauchly's test is significant and therefore we violate an assumption of ANOVA. In this case, we need to use Greenhouse-Geiser correction.
+
+```{r}
+#| echo: false
+
+result <- data %>% rstatix::anova_test(dv = performance, wid = participant, between = group, within = task)
+```
+
+```{r}
+#| include: false
+
+
+# ANOVA Result (without correction)
+
+result$ANOVA %>%
+  mutate(p = scales::pvalue(p)) %>% 
+  mutate(across(where(is.numeric), round,3)) %>% 
+  select(-`p<.05`) %>% 
+  clean_names() %>% 
+  rename(dfn = d_fn, dfd = d_fd) %>% 
+  gt() %>% 
+  gt_tab() %>% 
+  tab_options(table.width = px(600)) %>% 
+   cols_width(
+    everything() ~ px(60),
+    effect ~ px(100),
+  )
+```
+
+### ANOVA Result (with GGe correction)
+
+```{r}
+result$`Sphericity Corrections` %>% 
+  select(1:5) %>% 
+      mutate(`p[GG]` = scales::pvalue(`p[GG]`)) %>% 
+  mutate(across(where(is.numeric), round,3)) %>% 
+   gt() %>% 
+  gt_tab() %>% 
+  tab_options(table.width = px(800)) %>% 
+   cols_width(
+    everything() ~ px(60)
+  )
+```
+
+We can see that the effect of task is significant. The interaction between group and task is also significant. The degrees of freedom are 1.47 and 32.28 due to the Greenhouse-Geiser correction.
+
+From this analysis we can infer that task and group are both important indicators of performance.
+
+## Between Group Differences
+
+```{r}
+data_wide <- data %>% 
+  pivot_wider(!c(order, success_rate),names_from = task, values_from = performance)
+
+a <- data_wide %>% 
+  infer::t_test(A ~ group, order = c("Group 2", "Group 1")) %>% 
+  mutate(contrast = "Group 2 - Group 1",
+         task = "A") %>% relocate(task, contrast) 
+
+
+b <- data_wide %>% 
+  infer::t_test(B ~ group, order = c("Group 2", "Group 1")) %>% 
+  mutate(contrast = "Group 2 - Group 1",
+         task = "B") %>% relocate(task, contrast) 
+
+c <- data_wide %>% 
+  infer::t_test(C ~ group, order = c("Group 2", "Group 1")) %>% 
+  mutate(contrast = "Group 2 - Group 1",
+         task = "C") %>% relocate(task, contrast) 
+
+bind_rows(a, b, c) %>% 
+    mutate(p = scales::pvalue(p_value)) %>% 
+  select(-alternative, -p_value) %>% 
+  mutate(across(where(is.numeric), round,3))  %>%   gt() %>% 
+  gt_tab() %>% 
+  tab_options(table.width = px(800)) %>% 
+   cols_width(
+    everything() ~ px(60)
+  )
+```
+
+Pairwise comparisions indicate that all tasks between the two groups are significantly different.
+
+```{r}
+#| echo: false
+
+Group_2 <- data %>% filter(group == "Group 2")
+
+Group_1 <- data %>% filter(group == "Group 1")
+```
+
+## Within-Group Differences
+
+**Pairwise differences - Group 1**
+
+```{r}
+model <- lm(performance ~ task, data=Group_1)
+model.em <- emmeans(model, "task")
+
+pairs(model.em, adjust = "holm")  %>% data.frame() %>%  
+  mutate(p.value = scales::pvalue(p.value)) %>% 
+  mutate(across(where(is.numeric), round,3)) %>% gt() %>% 
+gt_tab() %>% 
+  tab_options(table.width = px(800)) %>% 
+   cols_width(
+     
+    everything() ~ px(60)
+  )
+```
+
+**Pairwise differences - Group 2**
+
+```{r}
+model <- lm(performance ~ task, data=Group_2)
+model.em <- emmeans(model, "task")
+
+pairs(model.em, adjust = "holm") %>% data.frame() %>%  
+  mutate(p.value = scales::pvalue(p.value)) %>% 
+  mutate(across(where(is.numeric), round,3)) %>% gt() %>% 
+gt_tab() %>% 
+  tab_options(table.width = px(800)) %>% 
+   cols_width(
+     
+    everything() ~ px(60)
+  )
+```
+
+```{r}
+#| include: false
+eff_size(model.em, sigma = sigma(model), edf = 33)  %>% data.frame() %>%  
+  mutate(across(where(is.numeric), round,3)) %>% gt() %>% 
+  gt_tab() %>% 
+  tab_options(table.width = px(800)) %>% 
+   cols_width(
+    everything() ~ px(60)
+  )
+```
+
+```{r}
+#| include: false
+eff_size(model.em, sigma = sigma(model), edf = 33)  %>% data.frame() %>% 
+  mutate(across(where(is.numeric), round,3))  %>% gt() %>% 
+  gt_tab() %>% 
+  tab_options(table.width = px(800)) %>% 
+   cols_width(
+    everything() ~ px(60)
+  )
+```

@@ -11,7 +11,7 @@ library(tidyverse)
 ```{r}
 scores <- 80 + 23 * scale(rnorm(172)) # 80 = mean, 23 = sd
 data <- data.frame(scores = scores)
-benchmark_score(data, scores, 67, output = "tibble")
+benchmark_score(data, scores, 67)
 ```
 
 ```{r}

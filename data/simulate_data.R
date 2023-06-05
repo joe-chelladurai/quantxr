@@ -1,6 +1,38 @@
 
 library(tidyverse)
 
+sample_data <- function(n = 100, shape1 = 2.3, shape2 = 6.8, seed = 1234) {
+     skewed <- function(n, skew = "right", shape1, shape2, seed) {
+         set.seed(seed)
+         if (skew == "right") {
+             skewed <- rbeta(n, shape1, shape2)
+         } else if (skew == "left") {
+             skewed <- rbeta(n, shape2, shape1)
+         }
+         skewed_scaled <- 1 + 4 * skewed
+         return(round(skewed_scaled))
+     }
+
+     set.seed(seed)
+     seeds <- seed:(seed + 9)
+
+     df <- data.frame(matrix(ncol = length(seeds), nrow = n))
+
+     for (i in 1:length(seeds)) {
+         skew_direction <- ifelse(i %% 2 == 0, "right", "left")
+         if (i == 4 || i == 10) {
+             shape1_adj <- shape1 * 2 # Increase shape1 to make values larger
+             shape2_adj <- shape2 * 2 # Increase shape2 to make values larger
+         } else {
+             shape1_adj <- shape1
+             shape2_adj <- shape2
+         }
+         df[, i] <- skewed(n, skew_direction, shape1_adj, shape2_adj, seeds[i])
+         names(df)[i] <- paste("q", i, sep = "_")
+     }
+     return(df)
+}
+
 skewed_df <- function(n = 100, shape1 = 2.3, shape2 = 6.8, seed = 1234) {
     skewed <- function(n, skew = "right", shape1, shape2, seed) {
         set.seed(seed)
@@ -48,3 +80,4 @@ calc_sus <- function(data) {
 sample_data <- skewed_df(100, 1, 2, 1234) |> calc_sus()
 
 write.csv(sample_data, "./data/sample_data.csv")
+

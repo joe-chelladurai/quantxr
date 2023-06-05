@@ -1,73 +1,194 @@
+---
+title: "Task Success Heatmap"
+---
 
 ```{r}
 #| warning: false
 #| message: false
 library(tidyverse)
 library(uxr)
+library(showtext)
+library(ggtext)
+library(gt)
+library(gtExtras)
+font_add_google("Open Sans")
+showtext_auto()
 ```
 
-## Task Success Heatmap
 
-Example adapted from Measuring the User Experience - Albert & Tullis (p. 75)
-```{r}
-data <- tibble(participant = c(1:10),
-               login = c(1, 1, 1, 1, 0, 1, 0, 0, 1, 1),
-               navigate = c(1, 0, 1, 0, 0, 1, 1, 0, 0, 1),
-               search = c(1, 1, 0, 0, 1, 1, 1, 0, 0, 0),
-               find_category = c(0, 0, 0, 0, 0, 1, 0, 0, 0, 1),
-               find_author = c(1, 1, 0, 1, 0, 1, 0, 1, 0, 1),
-               find_review = c(1, 0, 0, 0, 1, 0, 1, 0, 1, 1),
-               add_to_cart = c(1, 1, 1, 1, 0, 1, 1, 0, 1, 1),
-               update_address = c(1, 0, 0, 1, 0, 1, 1, 0, 1, 1),
-               check_out = c(0, 0, 0, 0, 0, 1, 0, 0, 0, 0),
-               check_status = c(1, 1, 0, 0, 0, 1, 1, 1, 1, 1))
-```
 
-```{r}
-data_long <- data |> pivot_longer(-participant, names_to = "action", values_to = "value") 
+```{r fig.showtext=TRUE}
+generate_data <- function(n, col_names) {
+    data <- tibble(participant = c(1:n))
 
-data_long <- data_long |> mutate(action = fct_inorder(action)) |> 
-  mutate(action = fct_rev(action))
-```
+    for (col_name in col_names) {
+        data[[col_name]] <- sample(c(0, 1), n, replace = TRUE)
+    }
 
-```{r}
-# Create heatmap
+    return(data)
+}
+
+
+set.seed(123)
+
+data <- generate_data(15, c(
+    "sign_in", "navigate", "search", "find_category",
+    "find_item", "find_review", "add_to_cart",
+    "edit_address", "check_out", "track_status"
+))
+
+
+data_long <- data |> pivot_longer(-participant, names_to = "action", values_to = "value")
+
+data_long <- data_long |>
+    mutate(action = str_replace_all(action, "_", " ")) |>
+    mutate(action = str_to_sentence(action)) |>
+    mutate(action = fct_inorder(action)) |>
+    mutate(action = fct_rev(action))
+
 ggplot(data_long, aes(x = factor(participant), y = action, fill = as.factor(value))) +
-  geom_tile(color = "white") +
-  scale_fill_manual(values = c("orange", "steelblue")) +
-  theme_minimal() +
-  labs(x = "Participant", y = "Action", fill = "Value",
-       title = "Participant Action Heatmap") +
-  theme(plot.title = element_text(hjust = 0.5))
+    geom_tile(color = "white") +
+    scale_fill_manual(values = c("#dedede", "#2ca786")) +
+    theme(
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.background = element_blank(),
+        axis.ticks = element_blank()
+    ) +
+    scale_x_discrete(expand = expansion(mult = c(0, .1)), position = "top") +
+    coord_fixed(ratio = 1) +
+    labs(
+        x = NULL, y = NULL, fill = "Value",
+        title = "<b>Participant Task <span style = 'color: #2ca786;'>Success</span> Heatmap</b>",
+        subtitle = "(Each column represents a participant"
+    ) +
+    theme(
+        plot.title.position = "plot",
+        plot.title = element_textbox_simple(
+            size = 28, lineheight = 1,
+            padding = margin(0),
+            margin = margin(0, 0, 4, 0)
+        )
+    ) +
+    theme(legend.position = "none") +
+    theme(axis.text.y = element_text(size = 22)) +
+    theme(text = element_text(family = "Open Sans"))
+```
 
+```{r fig.showtext=TRUE}
+
+ggplot(data_long, aes(x = factor(participant), y = action, fill = as.factor(value))) +
+    geom_tile(color = "white") +
+    scale_fill_manual(values = c("#BC412B", "#dedede")) +
+    theme(
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.background = element_blank(),
+        axis.ticks = element_blank()
+    ) +
+    scale_x_discrete(expand = expansion(mult = c(0, .1)), position = "top") +
+    coord_fixed(ratio = 1) +
+    labs(
+        x = NULL, y = NULL, fill = "Value",
+        title = "<b>Participant Task <span style = 'color: #BC412B;'>Error</span> Heatmap</b>",
+        subtitle = "(Each column represents a participant"
+    ) +
+    theme(
+        plot.title.position = "plot",
+        plot.title = element_textbox_simple(
+            size = 28, lineheight = 1,
+            padding = margin(0),
+            margin = margin(0, 0, 4, 0)
+        )
+    ) +
+    theme(legend.position = "none") +
+    theme(axis.text.y = element_text(size = 22)) +
+    theme(text = element_text(family = "Open Sans"))
 ```
 
 
+
+
 ```{r}
-result <- purrr::map_dfr(c(8, 5, 3, 4, 2, 9, 6, 2, 5, 8), function(count) benchmark_event(benchmark = 0.75, count = count, total = 10, input = "values", output = "tibble"))
+result_df <- data_long |>
+    mutate(action = fct_rev(action)) |>
+    group_by(action) |>
+    summarise(total = sum(value)) |>
+    mutate(tasks = 15) |>
+    # mutate(percent = round(total/15, 2)) |>
+    pmap_dfr(function(total, action, tasks) {
+        result_table <- benchmark_event(benchmark = 0.75, count = total, total = tasks, input = "values", output = "tibble")
+        result_table <- mutate(result_table, action = action) |> select(-output_text, -result, -benchmark)
+        result_table
+    }) |>
+    relocate(action, probability) |>
+    mutate(probability = round(probability, 2))
 
-result_df <- result |> select(count, total, benchmark, result) |> 
-  mutate(result = round(result, 2)) |> mutate(result = result*100) |> 
-  mutate(result_percent = scales::percent(result))
 
-result_df <- result_df |> tibble::rowid_to_column("task") |> 
-  mutate(task = fct_inorder(factor(task))) 
+result_df <- result_df |>
+    mutate(percent = count / total) |>
+    mutate(percent = round(percent, 2)) |>
+    select(-total) |>
+    relocate(probability, .after = last_col()) |>
+    rename(success_rate = percent)
 
-result_df |> 
-  ggplot(aes(x = result, y = factor(task))) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  scale_x_continuous(position = "top", expand = expansion(mult = c(0, .1))) +
-  scale_y_discrete(limits = rev(levels(result_df$task))) +
-  theme(axis.ticks.y = element_blank(),
-        axis.ticks.x = element_line(color = "grey")) +
-  labs(title = "Probability (%) that the task success rate will exceed the benchmark",
-       x = NULL,
-       y = NULL) +
-  geom_text(data = result_df, 
-            aes(label = ifelse(result == 0, "0", result), 
-                hjust = ifelse(result == 0, -0.25, 1.25)), 
-            color = with(result_df, ifelse(result == 0, "darkgrey", "white")), 
-            size = 5)
 
+result_df <- result_df |>
+    mutate(action = fct_rev(action)) |>
+    mutate(probability = probability * 100)
+```
+
+
+```{r fig.showtext=TRUE}
+result_df |>
+    ggplot(aes(x = probability, y = action)) +
+    geom_bar(stat = "identity") +
+    scale_x_continuous(
+        position = "top",
+        expand = expansion(mult = c(0, .1)), limits = c(0, 100)
+    ) +
+    theme(
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_line(color = "grey")
+    ) +
+    labs(
+        title = "Probability (%) that the task success rate will exceed the benchmark",
+        subtitle = "Benchmark set at 75%",
+        x = NULL,
+        y = NULL
+    ) +
+    geom_text(
+        data = result_df,
+        aes(
+            label = ifelse(probability == 0, "0", probability),
+            hjust = -0.5
+        ),
+        size = 5
+    ) +
+    theme(text = element_text(family = "Open Sans")) +
+    theme(
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.background = element_blank(),
+        axis.ticks = element_blank()
+    ) +
+    theme(
+        plot.title.position = "plot",
+        plot.title = element_textbox_simple(
+            size = 28, lineheight = 1,
+            padding = margin(0),
+            margin = margin(0, 0, 4, 0)
+        )
+    ) +
+    theme(legend.position = "none") +
+    theme(axis.text.y = element_text(size = 22))
+
+```
+
+```{r}
+result_df |>
+    gt() |>
+    tab_options(data_row.padding = "2px", column_labels.padding = "2px") |>
+    cols_align(align = "left", columns = action)
 ```
 
