@@ -2,130 +2,134 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/about.html</loc>
-    <lastmod>2023-06-05T20:30:54.708Z</lastmod>
+    <lastmod>2023-06-06T21:07:13.642Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/book/chapter-1/demo/index.html</loc>
-    <lastmod>2023-06-05T20:31:05.577Z</lastmod>
+    <lastmod>2023-06-06T21:07:24.601Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/book/chapter-1/demo/mini/absolute.html</loc>
-    <lastmod>2023-06-05T20:31:06.397Z</lastmod>
+    <lastmod>2023-06-06T21:07:25.271Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/book/chapter-1/demo/mini/auto-animate-code.html</loc>
-    <lastmod>2023-06-05T20:31:07.391Z</lastmod>
+    <lastmod>2023-06-06T21:07:26.121Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/book/chapter-1/demo/mini/auto-animate-movement.html</loc>
-    <lastmod>2023-06-05T20:31:08.127Z</lastmod>
+    <lastmod>2023-06-06T21:07:26.769Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/book/chapter-1/demo/mini/auto-animate-stack.html</loc>
-    <lastmod>2023-06-05T20:31:08.880Z</lastmod>
+    <lastmod>2023-06-06T21:07:27.518Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/book/chapter-1/demo/mini/auto-animate.html</loc>
-    <lastmod>2023-06-05T20:31:09.577Z</lastmod>
+    <lastmod>2023-06-06T21:07:28.207Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/book/chapter-1/demo/mini/fragments-nested.html</loc>
-    <lastmod>2023-06-05T20:31:10.348Z</lastmod>
+    <lastmod>2023-06-06T21:07:28.894Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/book/chapter-1/demo/mini/fragments.html</loc>
-    <lastmod>2023-06-05T20:31:11.128Z</lastmod>
+    <lastmod>2023-06-06T21:07:29.633Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/book/chapter-1/demo/mini/stack.html</loc>
-    <lastmod>2023-06-05T20:31:11.830Z</lastmod>
+    <lastmod>2023-06-06T21:07:30.360Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/book/chapter-1/demo/mini/zoom.html</loc>
-    <lastmod>2023-06-05T20:31:12.598Z</lastmod>
+    <lastmod>2023-06-06T21:07:31.040Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/book/chapter-1/index.html</loc>
-    <lastmod>2023-06-05T20:31:13.400Z</lastmod>
+    <lastmod>2023-06-06T21:07:31.850Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/book/chapter-2/index.html</loc>
-    <lastmod>2023-06-05T20:31:14.239Z</lastmod>
+    <lastmod>2023-06-06T21:07:32.620Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/garden/change-over-time/index.html</loc>
-    <lastmod>2023-06-05T20:31:15.913Z</lastmod>
+    <lastmod>2023-06-06T21:07:34.162Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/garden/code/index.html</loc>
-    <lastmod>2023-06-05T20:31:17.240Z</lastmod>
+    <lastmod>2023-06-06T21:07:35.550Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/garden/gardening/index.html</loc>
-    <lastmod>2023-06-05T20:31:18.543Z</lastmod>
+    <lastmod>2023-06-06T21:07:36.981Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/garden/report/index.html</loc>
-    <lastmod>2023-06-05T20:31:19.938Z</lastmod>
+    <lastmod>2023-06-06T21:07:38.289Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/garden/survey/index.html</loc>
-    <lastmod>2023-06-05T20:31:20.941Z</lastmod>
+    <lastmod>2023-06-06T21:07:39.403Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/garden/ux/anova-2.html</loc>
-    <lastmod>2023-06-05T20:31:24.207Z</lastmod>
+    <lastmod>2023-06-06T21:07:40.124Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joe-chelladurai.github.io/quantxr/garden/ux/anova-3.html</loc>
+    <lastmod>2023-06-06T21:07:41.369Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/garden/ux/anova-task-performance.html</loc>
-    <lastmod>2023-06-05T20:31:25.178Z</lastmod>
+    <lastmod>2023-06-06T21:07:42.456Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/garden/ux/benchmark_scores.html</loc>
-    <lastmod>2023-06-05T20:31:26.152Z</lastmod>
+    <lastmod>2023-06-06T21:07:43.679Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/garden/ux/csat.html</loc>
-    <lastmod>2023-06-05T20:31:27.237Z</lastmod>
+    <lastmod>2023-06-06T21:07:44.868Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/garden/ux/index.html</loc>
-    <lastmod>2023-06-05T20:31:28.408Z</lastmod>
+    <lastmod>2023-06-06T21:07:46.098Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/garden/ux/task-success-heatmap.html</loc>
-    <lastmod>2023-06-05T20:31:29.667Z</lastmod>
+    <lastmod>2023-06-06T21:07:47.307Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/garden/ux/uxr-package-examples.html</loc>
-    <lastmod>2023-06-05T20:31:30.707Z</lastmod>
+    <lastmod>2023-06-06T21:07:48.433Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/garden.html</loc>
-    <lastmod>2023-06-05T20:31:31.773Z</lastmod>
+    <lastmod>2023-06-06T21:07:49.571Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/index.html</loc>
-    <lastmod>2023-06-05T20:31:32.477Z</lastmod>
+    <lastmod>2023-06-06T21:07:50.232Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/newsletters/01/index.html</loc>
-    <lastmod>2023-06-05T20:31:33.227Z</lastmod>
+    <lastmod>2023-06-06T21:07:50.970Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/newsletters.html</loc>
-    <lastmod>2023-06-05T20:31:34.008Z</lastmod>
+    <lastmod>2023-06-06T21:07:51.819Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/posts/2023-31-5-first-post/index.html</loc>
-    <lastmod>2023-06-05T20:31:34.684Z</lastmod>
+    <lastmod>2023-06-06T21:07:52.566Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/posts.html</loc>
-    <lastmod>2023-06-05T20:31:35.557Z</lastmod>
+    <lastmod>2023-06-06T21:07:53.360Z</lastmod>
   </url>
   <url>
     <loc>https://joe-chelladurai.github.io/quantxr/public/book/index.html</loc>
-    <lastmod>2023-06-05T20:31:36.212Z</lastmod>
+    <lastmod>2023-06-06T21:07:54.024Z</lastmod>
   </url>
 </urlset>
